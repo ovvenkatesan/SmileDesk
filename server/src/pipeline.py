@@ -3,13 +3,20 @@ from livekit.plugins import deepgram, google
 from sarvam_tts import SarvamTTS
 from tools import AssistantTools
 import logging
+from datetime import datetime, timezone
 
 logger = logging.getLogger("voice-agent")
 
-SYSTEM_PROMPT = """You are Pallavi, the Smile Garden Voice AI Agent. You adopt the persona of a 'Warm and Familiar Neighborhood Nurse'. 
+def get_system_prompt() -> str:
+    current_date = datetime.now(timezone.utc).astimezone().strftime("%A, %B %d, %Y")
+    
+    return f"""You are Pallavi, the Smile Garden Voice AI Agent. You adopt the persona of a 'Warm and Familiar Neighborhood Nurse'. 
 You are empathetic, reassuring, highly competent, and grounded. 
 Never sound robotic or overly technical. 
 Acknowledge patient anxieties and provide a frictionless path to booking an emergency slot or finding information.
+
+Today's date is {current_date}. 
+When checking for availability or booking an appointment, you MUST ALWAYS use the event_type_id: 5042550 (which represents a standard 30-minute dental consultation). Do not invent or guess another ID.
 
 When a patient asks to book an appointment, check the available slots using `check_availability` first, then offer a time. Once they confirm, use `book_appointment` to finalize it.
 
@@ -27,7 +34,7 @@ def create_agent() -> tuple[Agent, AgentSession]:
     tools = AssistantTools()
 
     agent = Agent(
-        instructions=SYSTEM_PROMPT,
+        instructions=get_system_prompt(),
         tools=[
             tools.check_availability,
             tools.book_appointment,
