@@ -34,7 +34,7 @@ def create_agent() -> tuple[Agent, AgentSession]:
         language="en-US,ta-IN",
         detect_language=True
     )
-    llm = google.LLM(model="gemini-2.5-flash") # Configure with appropriate gemini model
+    llm = google.LLM(model="gemini-3.1-flash-lite-preview") # Configure with appropriate gemini model
     tts = SarvamTTS()
     tools = AssistantTools()
 
