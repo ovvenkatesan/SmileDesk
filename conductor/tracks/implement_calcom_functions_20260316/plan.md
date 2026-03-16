@@ -14,7 +14,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Define LiveKit AI Tools' (Protocol in workflow.md) [checkpoint: fd5ae8d]
 
 ## Phase 3: Agent Integration
-- [~] Task: Inject tools into the Gemini Agent.
-    - [ ] Update `pipeline.py` to import and pass `AssistantTools()` to the `Agent` constructor via `fnc_ctx`.
-    - [ ] Update the `SYSTEM_PROMPT` to explicitly instruct the agent on when and how to use the booking tools.
+- [x] Task: Inject tools into the Gemini Agent. 5fd0a99
+    - [x] Update `pipeline.py` to import and pass `AssistantTools()` to the `Agent` constructor via `fnc_ctx`.
+    - [x] Update the `SYSTEM_PROMPT` to explicitly instruct the agent on when and how to use the booking tools.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Agent Integration' (Protocol in workflow.md)
