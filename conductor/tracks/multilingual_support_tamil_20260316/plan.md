@@ -5,8 +5,8 @@
     - [x] Modify `deepgram.STT()` initialization to include `language="multi"` or explicitly list `["en", "ta"]` based on LiveKit Deepgram plugin documentation.
 
 ## Phase 2: Sarvam TTS Configuration
-- [ ] Task: Ensure `sarvam_tts.py` handles language switching.
-    - [ ] Review `SarvamTTS` implementation to ensure it correctly passes the target language to the Sarvam API based on the LLM's output, or verify if Sarvam auto-detects.
+- [x] Task: Ensure `sarvam_tts.py` handles language switching. 1a997ce
+    - [x] Review `SarvamTTS` implementation to ensure it correctly passes the target language to the Sarvam API based on the LLM's output, or verify if Sarvam auto-detects.
 
 ## Phase 3: Prompt Engineering
 - [ ] Task: Update the `get_system_prompt()` in `pipeline.py`.
