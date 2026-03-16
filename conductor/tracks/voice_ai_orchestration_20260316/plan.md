@@ -13,7 +13,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Agent Setup' (Protocol in workflow.md) [checkpoint: 717a8a6]
 
 ## Phase 3: AI Pipeline Integration
-- [ ] Task: Integrate Speech-to-Text (STT) and LLM.
+- [x] Task: Integrate Speech-to-Text (STT) and LLM. 3a74d48
     - [ ] Configure Deepgram plugin for real-time transcription.
     - [ ] Configure Gemini 2.0 plugin with the "Neighborhood Nurse" system prompt.
 - [ ] Task: Integrate Text-to-Speech (TTS).
