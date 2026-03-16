@@ -7,7 +7,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Project Scaffolding' (Protocol in workflow.md) [checkpoint: 85971d4]
 
 ## Phase 2: LiveKit Agent Setup
-- [ ] Task: Create the main agent entrypoint.
+- [x] Task: Create the main agent entrypoint. 5b608aa
     - [ ] Implement `agent.py` to handle LiveKit worker initialization.
     - [ ] Setup room connection and participant event listeners.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Agent Setup' (Protocol in workflow.md)
