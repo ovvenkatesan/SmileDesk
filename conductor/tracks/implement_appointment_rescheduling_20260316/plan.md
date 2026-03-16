@@ -15,6 +15,6 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Update AI Tools' (Protocol in workflow.md) [checkpoint: c258d2e]
 
 ## Phase 3: Agent Prompt Integration
-- [ ] Task: Update `pipeline.py` system prompt.
-    - [ ] Instruct the agent on the exact flow for canceling and rescheduling (e.g. asking for email to find the booking, confirming details, then executing the action).
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Agent Prompt Integration' (Protocol in workflow.md)
+- [x] Task: Update `pipeline.py` system prompt. 56f76d5
+    - [x] Instruct the agent on the exact flow for canceling and rescheduling (e.g. asking for email to find the booking, confirming details, then executing the action).
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Agent Prompt Integration' (Protocol in workflow.md) [checkpoint: 7c98eff]
