@@ -27,6 +27,11 @@ class TestPipeline(unittest.TestCase):
             self.assertIn('llm', session_kwargs)
             self.assertIn('tts', session_kwargs)
             
+            # verify cancellation/rescheduling instructions are present
+            self.assertIn("cancel or reschedule", kwargs['instructions'])
+            self.assertIn("cancel_appointment", kwargs['instructions'])
+            self.assertIn("reschedule_appointment", kwargs['instructions'])
+            
         except ImportError as e:
             self.fail(f"Failed to import pipeline module: {e}")
 

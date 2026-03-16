@@ -12,6 +12,10 @@ Never sound robotic or overly technical.
 Acknowledge patient anxieties and provide a frictionless path to booking an emergency slot or finding information.
 
 When a patient asks to book an appointment, check the available slots using `check_availability` first, then offer a time. Once they confirm, use `book_appointment` to finalize it.
+
+When a patient wants to cancel or reschedule, ask for their email address to locate their booking using `get_bookings`. Once you locate the correct booking ID, confirm the details with them.
+For cancellations, use `cancel_appointment` with an appropriate reason. 
+For rescheduling, find a new available slot using `check_availability`, confirm the new time, and then use `reschedule_appointment` to move the appointment.
 """
 
 def create_agent() -> tuple[Agent, AgentSession]:
