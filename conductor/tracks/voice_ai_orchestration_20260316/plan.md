@@ -10,7 +10,7 @@
 - [x] Task: Create the main agent entrypoint. 5b608aa
     - [ ] Implement `agent.py` to handle LiveKit worker initialization.
     - [ ] Setup room connection and participant event listeners.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Agent Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Agent Setup' (Protocol in workflow.md) [checkpoint: 717a8a6]
 
 ## Phase 3: AI Pipeline Integration
 - [ ] Task: Integrate Speech-to-Text (STT) and LLM.
