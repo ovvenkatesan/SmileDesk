@@ -55,3 +55,51 @@ class AssistantTools:
         except Exception as e:
             logger.error(f"Error creating booking: {e}")
             return "There was an error creating the booking. The time slot might be no longer available or there is a system issue."
+
+    @llm.function_tool(description="Lookup a user's existing appointment bookings by their email address.")
+    async def get_bookings(
+        self,
+        email: Annotated[str, "Patient's email address"]
+    ) -> str:
+        logger.info(f"Tool called: get_bookings({email})")
+        try:
+            result = await self.cal_client.get_booking_by_email(email)
+            if "bookings" in result and result["bookings"]:
+                bookings = []
+                for b in result["bookings"]:
+                    bookings.append(f"ID: {b.get('id')}, Time: {b.get('start')}, Status: {b.get('status')}")
+                return f"Found bookings for {email}:\n" + "\n".join(bookings)
+            else:
+                return f"No bookings found for email {email}."
+        except Exception as e:
+            logger.error(f"Error fetching bookings: {e}")
+            return "There was an error fetching the bookings."
+
+    @llm.function_tool(description="Cancel an existing dental appointment.")
+    async def cancel_appointment(
+        self,
+        booking_id: Annotated[int, "The ID of the booking to cancel"],
+        cancel_reason: Annotated[str, "Reason for cancellation"]
+    ) -> str:
+        logger.info(f"Tool called: cancel_appointment({booking_id})")
+        try:
+            result = await self.cal_client.cancel_booking(booking_id, cancel_reason)
+            return f"Successfully canceled appointment {booking_id}."
+        except Exception as e:
+            logger.error(f"Error canceling booking: {e}")
+            return f"There was an error canceling the booking {booking_id}."
+
+    @llm.function_tool(description="Reschedule an existing dental appointment to a new time.")
+    async def reschedule_appointment(
+        self,
+        booking_id: Annotated[int, "The ID of the booking to reschedule"],
+        new_start_time: Annotated[str, "ISO 8601 formatted new start time (e.g. '2026-03-25T10:00:00Z')"]
+    ) -> str:
+        logger.info(f"Tool called: reschedule_appointment({booking_id}, {new_start_time})")
+        try:
+            result = await self.cal_client.reschedule_booking(booking_id, new_start_time)
+            new_id = result.get("booking", {}).get("id", "Unknown")
+            return f"Successfully rescheduled appointment. New Booking ID is {new_id}."
+        except Exception as e:
+            logger.error(f"Error rescheduling booking: {e}")
+            return f"There was an error rescheduling the booking {booking_id}."
