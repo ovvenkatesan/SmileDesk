@@ -23,7 +23,8 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         tools = AssistantTools()
         result = await tools.check_availability(date_from="2026-03-20", date_to="2026-03-20", event_type_id=123)
         
-        self.assertIn("2026-03-20T09:00:00Z", result)
+        self.assertIn("02:30 PM IST", result)
+        self.assertIn("2026-03-20T14:30:00+05:30", result)
         mock_get_slots.assert_called_once_with("2026-03-20", "2026-03-20", 123)
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})
