@@ -2,6 +2,7 @@ import logging
 from livekit.agents import llm
 from typing import Annotated
 from cal_client import CalClient
+from datetime import datetime, timezone, timedelta
 
 logger = logging.getLogger("voice-agent.tools")
 
@@ -31,18 +32,34 @@ class AssistantTools:
                 return "No available slots found for the requested dates."
             
             available_times = []
+            ist_tz = timezone(timedelta(hours=5, minutes=30))
+            
+            def format_time(raw_time: str) -> str:
+                if not raw_time:
+                    return ""
+                try:
+                    dt = datetime.fromisoformat(raw_time.replace("Z", "+00:00"))
+                    ist_dt = dt.astimezone(ist_tz)
+                    return f"{ist_dt.strftime('%I:%M %p')} IST (ISO for booking: {ist_dt.isoformat()})"
+                except ValueError:
+                    return raw_time
+
             if isinstance(slots_data, dict):
                 for date, daily_slots in slots_data.items():
                     for slot in daily_slots:
-                        available_times.append(slot.get("time"))
+                        t = format_time(slot.get("time"))
+                        if t:
+                            available_times.append(t)
             elif isinstance(slots_data, list):
                 for slot in slots_data:
-                    available_times.append(slot.get("time"))
+                    t = format_time(slot.get("time"))
+                    if t:
+                        available_times.append(t)
             
             if not available_times:
                 return "No available slots found for the requested dates."
                 
-            return f"Available slots: {', '.join(available_times)}"
+            return f"Available slots:\n" + "\n".join(available_times)
         except Exception as e:
             logger.error(f"Error checking availability: {e}")
             return "There was an error checking the calendar. Please advise the user that the system is temporarily down."
