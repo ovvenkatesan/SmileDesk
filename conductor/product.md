@@ -20,6 +20,7 @@ Create a specialized, 24/7 Voice AI support agent that elevates customer satisfa
 - **Owner Dashboard PWA:** A Next.js/Tailwind application prioritizing the "After-Hours ROI Snapshot" to prove value to clinic owners.
 - **Zero-Wait Telephony:** SIP trunking integration (Vobiz) to pick up on ring one, every time.
 - **Multilingual Support:** English (Primary) and Tamil (Secondary via Sarvam TTS) for regional demographics.
+- **Comprehensive Appointment Management:** Patients can seamlessly book, reschedule, or cancel their dental appointments directly through the Voice AI, which securely interfaces with the Cal.com API.
 
 ## Success Criteria (North Star)
 - **Zero Missed Opportunities:** Achieve a 0% missed call rate via infinite concurrency.
