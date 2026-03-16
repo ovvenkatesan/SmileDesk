@@ -10,7 +10,7 @@ from livekit.agents.tts import TTSCapabilities
 logger = logging.getLogger("voice-agent.sarvam")
 
 class SarvamTTS(tts.TTS):
-    def __init__(self, *, sample_rate: int = 24000, num_channels: int = 1, api_key: str | None = None, speaker: str = "meera"):
+    def __init__(self, *, sample_rate: int = 24000, num_channels: int = 1, api_key: str | None = None, speaker: str = "kavitha"):
         super().__init__(
             capabilities=TTSCapabilities(streaming=False),
             sample_rate=sample_rate,
