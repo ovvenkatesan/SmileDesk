@@ -41,7 +41,7 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         tools = AssistantTools()
         result = await tools.book_appointment(
             name="Jane Doe",
-            email="jane@example.com",
+            phone="+1234567890",
             start_time="2026-03-20T09:00:00Z",
             event_type_id=123
         )
@@ -49,7 +49,7 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         self.assertIn("abc-123", result)
         self.assertIn("ACCEPTED", result)
         mock_create_booking.assert_called_once_with(
-            "Jane Doe", "jane@example.com", "2026-03-20T09:00:00Z", 123
+            "Jane Doe", "1234567890@smilegarden.dummy", "2026-03-20T09:00:00Z", 123
         )
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})

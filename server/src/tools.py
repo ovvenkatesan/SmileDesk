@@ -51,13 +51,16 @@ class AssistantTools:
     async def book_appointment(
         self,
         name: Annotated[str, "Patient's full name"],
-        email: Annotated[str, "Patient's email address"],
+        phone: Annotated[str, "Patient's phone number"],
         start_time: Annotated[str, "ISO 8601 formatted start time (e.g. '2026-03-20T09:00:00Z')"],
         event_type_id: Annotated[int, "The ID of the event type to book"]
     ) -> str:
-        logger.info(f"Tool called: book_appointment({name}, {start_time})")
+        logger.info(f"Tool called: book_appointment({name}, {phone}, {start_time})")
         try:
-            result = await self.cal_client.create_booking(name, email, start_time, event_type_id)
+            # Cal.com requires an email in the payload, but we are collecting a phone number from the user.
+            # We use a dummy email derived from the phone number since phone is the primary contact method.
+            dummy_email = f"{phone.replace(' ', '').replace('+', '')}@smilegarden.dummy"
+            result = await self.cal_client.create_booking(name, dummy_email, start_time, event_type_id)
             
             status = result.get("status") or result.get("data", {}).get("status")
             booking_id = result.get("id") or result.get("data", {}).get("uid") or result.get("data", {}).get("id")
