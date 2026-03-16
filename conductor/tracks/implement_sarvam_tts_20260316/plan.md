@@ -4,10 +4,10 @@
 - [x] Task: Research Sarvam TTS Python integration and update requirements. 92e5d1f
     - [ ] Add `requests` or `aiohttp` to `server/requirements.txt` if needed for REST API, or add Sarvam SDK if one exists.
     - [ ] Update `server/tests/test_deps.py`.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Research and SDK Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Research and SDK Setup' (Protocol in workflow.md) [checkpoint: 5f9f3e5]
 
 ## Phase 2: TTS Implementation
-- [ ] Task: Implement Sarvam API call in `sarvam_tts.py`.
+- [~] Task: Implement Sarvam API call in `sarvam_tts.py`.
     - [ ] Retrieve `SARVAM_API_KEY` from environment.
     - [ ] Implement the `_main_task` in `DummyChunkedStream` (rename it to `SarvamChunkedStream`) to make the async HTTP request to Sarvam's API.
     - [ ] Decode the returned audio (typically base64 encoded wav/pcm).
