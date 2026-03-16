@@ -28,7 +28,10 @@ For rescheduling, find a new available slot using `check_availability`, confirm 
 def create_agent() -> tuple[Agent, AgentSession]:
     """Creates and configures the Voice Pipeline Agent and Session."""
     
-    stt = deepgram.STT()
+    stt = deepgram.STT(
+        language="en-US,ta-IN",
+        detect_language=True
+    )
     llm = google.LLM(model="gemini-2.5-flash") # Configure with appropriate gemini model
     tts = SarvamTTS()
     tools = AssistantTools()
