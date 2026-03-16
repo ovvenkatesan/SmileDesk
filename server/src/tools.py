@@ -18,14 +18,22 @@ class AssistantTools:
     ) -> str:
         logger.info(f"Tool called: check_availability({date_from}, {date_to}, {event_type_id})")
         try:
-            slots = await self.cal_client.get_available_slots(date_from, date_to, event_type_id)
-            # Simplistic parsing to return a readable string to the LLM
-            if not slots or "slots" not in slots or not slots["slots"]:
+            slots_response = await self.cal_client.get_available_slots(date_from, date_to, event_type_id)
+            
+            # Extract slots from the response - Cal.com v2 structure might vary slightly 
+            # Check for 'data' key or 'slots' key depending on exact API payload
+            slots_data = slots_response.get("data", slots_response.get("slots", {}))
+            
+            if not slots_data:
                 return "No available slots found for the requested dates."
-                
+            
             available_times = []
-            for date, daily_slots in slots["slots"].items():
-                for slot in daily_slots:
+            if isinstance(slots_data, dict):
+                for date, daily_slots in slots_data.items():
+                    for slot in daily_slots:
+                        available_times.append(slot.get("time"))
+            elif isinstance(slots_data, list):
+                for slot in slots_data:
                     available_times.append(slot.get("time"))
             
             if not available_times:
@@ -47,9 +55,12 @@ class AssistantTools:
         logger.info(f"Tool called: book_appointment({name}, {start_time})")
         try:
             result = await self.cal_client.create_booking(name, email, start_time, event_type_id)
-            if "booking" in result and result["booking"].get("status") == "ACCEPTED":
-                booking_id = result["booking"].get("id")
-                return f"Successfully booked appointment! Booking ID is {booking_id} with status ACCEPTED."
+            
+            status = result.get("status") or result.get("data", {}).get("status")
+            booking_id = result.get("id") or result.get("data", {}).get("uid") or result.get("data", {}).get("id")
+            
+            if status in ["ACCEPTED", "PENDING", "SUCCESS"]:
+                return f"Successfully booked appointment! Booking ID is {booking_id} with status {status}."
             else:
                 return f"Booking requested, but status is unclear: {result}"
         except Exception as e:
@@ -64,10 +75,16 @@ class AssistantTools:
         logger.info(f"Tool called: get_bookings({email})")
         try:
             result = await self.cal_client.get_booking_by_email(email)
-            if "bookings" in result and result["bookings"]:
+            
+            bookings_list = result.get("data", result.get("bookings", []))
+            
+            if bookings_list:
                 bookings = []
-                for b in result["bookings"]:
-                    bookings.append(f"ID: {b.get('id')}, Time: {b.get('start')}, Status: {b.get('status')}")
+                for b in bookings_list:
+                    b_id = b.get("uid", b.get("id"))
+                    b_time = b.get("start")
+                    b_status = b.get("status")
+                    bookings.append(f"ID: {b_id}, Time: {b_time}, Status: {b_status}")
                 return f"Found bookings for {email}:\n" + "\n".join(bookings)
             else:
                 return f"No bookings found for email {email}."
@@ -78,7 +95,7 @@ class AssistantTools:
     @llm.function_tool(description="Cancel an existing dental appointment.")
     async def cancel_appointment(
         self,
-        booking_id: Annotated[int, "The ID of the booking to cancel"],
+        booking_id: Annotated[str, "The ID or UID of the booking to cancel"],
         cancel_reason: Annotated[str, "Reason for cancellation"]
     ) -> str:
         logger.info(f"Tool called: cancel_appointment({booking_id})")
@@ -92,13 +109,13 @@ class AssistantTools:
     @llm.function_tool(description="Reschedule an existing dental appointment to a new time.")
     async def reschedule_appointment(
         self,
-        booking_id: Annotated[int, "The ID of the booking to reschedule"],
+        booking_id: Annotated[str, "The ID or UID of the booking to reschedule"],
         new_start_time: Annotated[str, "ISO 8601 formatted new start time (e.g. '2026-03-25T10:00:00Z')"]
     ) -> str:
         logger.info(f"Tool called: reschedule_appointment({booking_id}, {new_start_time})")
         try:
             result = await self.cal_client.reschedule_booking(booking_id, new_start_time)
-            new_id = result.get("booking", {}).get("id", "Unknown")
+            new_id = result.get("data", {}).get("uid", result.get("data", {}).get("id", "Unknown"))
             return f"Successfully rescheduled appointment. New Booking ID is {new_id}."
         except Exception as e:
             logger.error(f"Error rescheduling booking: {e}")

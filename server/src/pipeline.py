@@ -28,7 +28,13 @@ def create_agent() -> tuple[Agent, AgentSession]:
 
     agent = Agent(
         instructions=SYSTEM_PROMPT,
-        tools=[tools]
+        tools=[
+            tools.check_availability,
+            tools.book_appointment,
+            tools.get_bookings,
+            tools.cancel_appointment,
+            tools.reschedule_appointment
+        ]
     )
     
     session = AgentSession(

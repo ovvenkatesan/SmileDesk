@@ -13,7 +13,7 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         from tools import AssistantTools
         
         mock_get_slots.return_value = {
-            "slots": {
+            "data": {
                 "2026-03-20": [
                     {"time": "2026-03-20T09:00:00Z"}
                 ]
@@ -32,8 +32,8 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         from tools import AssistantTools
         
         mock_create_booking.return_value = {
-            "booking": {
-                "id": 12345,
+            "data": {
+                "uid": "abc-123",
                 "status": "ACCEPTED"
             }
         }
@@ -46,7 +46,7 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
             event_type_id=123
         )
         
-        self.assertIn("12345", result)
+        self.assertIn("abc-123", result)
         self.assertIn("ACCEPTED", result)
         mock_create_booking.assert_called_once_with(
             "Jane Doe", "jane@example.com", "2026-03-20T09:00:00Z", 123
@@ -58,9 +58,9 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         from tools import AssistantTools
         
         mock_get_bookings.return_value = {
-            "bookings": [
+            "data": [
                 {
-                    "id": 12345,
+                    "uid": "abc-123",
                     "start": "2026-03-20T09:00:00Z",
                     "status": "ACCEPTED"
                 }
@@ -70,7 +70,7 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         tools = AssistantTools()
         result = await tools.get_bookings(email="jane@example.com")
         
-        self.assertIn("12345", result)
+        self.assertIn("abc-123", result)
         self.assertIn("2026-03-20T09:00:00Z", result)
         mock_get_bookings.assert_called_once_with("jane@example.com")
 
@@ -80,18 +80,15 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         from tools import AssistantTools
         
         mock_cancel_booking.return_value = {
-            "booking": {
-                "id": 12345,
-                "status": "CANCELLED"
-            }
+            "status": "SUCCESS"
         }
         
         tools = AssistantTools()
-        result = await tools.cancel_appointment(booking_id=12345, cancel_reason="Patient request")
+        result = await tools.cancel_appointment(booking_id="abc-123", cancel_reason="Patient request")
         
         self.assertIn("Successfully canceled", result)
-        self.assertIn("12345", result)
-        mock_cancel_booking.assert_called_once_with(12345, "Patient request")
+        self.assertIn("abc-123", result)
+        mock_cancel_booking.assert_called_once_with("abc-123", "Patient request")
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})
     @patch('cal_client.CalClient.reschedule_booking')
@@ -99,18 +96,18 @@ class TestTools(unittest.IsolatedAsyncioTestCase):
         from tools import AssistantTools
         
         mock_reschedule_booking.return_value = {
-            "booking": {
-                "id": 12346,
+            "data": {
+                "uid": "def-456",
                 "status": "ACCEPTED"
             }
         }
         
         tools = AssistantTools()
-        result = await tools.reschedule_appointment(booking_id=12345, new_start_time="2026-03-25T10:00:00Z")
+        result = await tools.reschedule_appointment(booking_id="abc-123", new_start_time="2026-03-25T10:00:00Z")
         
         self.assertIn("Successfully rescheduled", result)
-        self.assertIn("12346", result)
-        mock_reschedule_booking.assert_called_once_with(12345, "2026-03-25T10:00:00Z")
+        self.assertIn("def-456", result)
+        mock_reschedule_booking.assert_called_once_with("abc-123", "2026-03-25T10:00:00Z")
 
 if __name__ == '__main__':
     unittest.main()

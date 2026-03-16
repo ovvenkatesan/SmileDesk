@@ -16,7 +16,7 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
         mock_response = AsyncMock()
         mock_response.status = 200
         mock_response.json.return_value = {
-            "slots": {
+            "data": {
                 "2026-03-20": [
                     {"time": "2026-03-20T09:00:00Z"},
                     {"time": "2026-03-20T10:00:00Z"}
@@ -28,8 +28,8 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
         client = CalClient()
         slots = await client.get_available_slots("2026-03-20", "2026-03-21", event_type_id=123)
         
-        self.assertIn("2026-03-20", slots["slots"])
-        self.assertEqual(len(slots["slots"]["2026-03-20"]), 2)
+        self.assertIn("2026-03-20", slots["data"])
+        self.assertEqual(len(slots["data"]["2026-03-20"]), 2)
         mock_get.assert_called_once()
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})
@@ -41,8 +41,9 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
         mock_response = AsyncMock()
         mock_response.status = 200
         mock_response.json.return_value = {
-            "booking": {
+            "data": {
                 "id": 12345,
+                "uid": "abc-123",
                 "status": "ACCEPTED"
             }
         }
@@ -56,8 +57,8 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
             event_type_id=123
         )
         
-        self.assertEqual(booking_result["booking"]["id"], 12345)
-        self.assertEqual(booking_result["booking"]["status"], "ACCEPTED")
+        self.assertEqual(booking_result["data"]["uid"], "abc-123")
+        self.assertEqual(booking_result["data"]["status"], "ACCEPTED")
         mock_post.assert_called_once()
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})
@@ -68,9 +69,9 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
         mock_response = AsyncMock()
         mock_response.status = 200
         mock_response.json.return_value = {
-            "bookings": [
+            "data": [
                 {
-                    "id": 12345,
+                    "uid": "abc-123",
                     "title": "Dental Checkup",
                     "status": "ACCEPTED"
                 }
@@ -81,30 +82,27 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
         client = CalClient()
         bookings_result = await client.get_booking_by_email("john@example.com")
         
-        self.assertEqual(len(bookings_result["bookings"]), 1)
-        self.assertEqual(bookings_result["bookings"][0]["id"], 12345)
+        self.assertEqual(len(bookings_result["data"]), 1)
+        self.assertEqual(bookings_result["data"][0]["uid"], "abc-123")
         mock_get.assert_called_once()
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})
-    @patch('aiohttp.ClientSession.delete')
-    async def test_cancel_booking(self, mock_delete):
+    @patch('aiohttp.ClientSession.post')
+    async def test_cancel_booking(self, mock_post):
         from cal_client import CalClient
         
         mock_response = AsyncMock()
         mock_response.status = 200
         mock_response.json.return_value = {
-            "booking": {
-                "id": 12345,
-                "status": "CANCELLED"
-            }
+            "status": "SUCCESS"
         }
-        mock_delete.return_value.__aenter__.return_value = mock_response
+        mock_post.return_value.__aenter__.return_value = mock_response
 
         client = CalClient()
-        cancel_result = await client.cancel_booking(12345, "Patient request")
+        cancel_result = await client.cancel_booking("abc-123", "Patient request")
         
-        self.assertEqual(cancel_result["booking"]["status"], "CANCELLED")
-        mock_delete.assert_called_once()
+        self.assertEqual(cancel_result["status"], "SUCCESS")
+        mock_post.assert_called_once()
 
     @patch.dict(os.environ, {"CAL_API_KEY": "test_key"})
     @patch('aiohttp.ClientSession.post')
@@ -114,17 +112,17 @@ class TestCalClient(unittest.IsolatedAsyncioTestCase):
         mock_response = AsyncMock()
         mock_response.status = 200
         mock_response.json.return_value = {
-            "booking": {
-                "id": 12346,
+            "data": {
+                "uid": "def-456",
                 "status": "ACCEPTED"
             }
         }
         mock_post.return_value.__aenter__.return_value = mock_response
 
         client = CalClient()
-        reschedule_result = await client.reschedule_booking(12345, "2026-03-25T10:00:00Z")
+        reschedule_result = await client.reschedule_booking("abc-123", "2026-03-25T10:00:00Z")
         
-        self.assertEqual(reschedule_result["booking"]["id"], 12346)
+        self.assertEqual(reschedule_result["data"]["uid"], "def-456")
         mock_post.assert_called_once()
 
 if __name__ == '__main__':

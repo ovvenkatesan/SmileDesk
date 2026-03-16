@@ -1,19 +1,24 @@
 import aiohttp
 import os
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 import urllib.parse
 
 logger = logging.getLogger("voice-agent.calcom")
 
 class CalClient:
-    """Client for interacting with the Cal.com API."""
+    """Client for interacting with the Cal.com API v2."""
     
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.getenv("CAL_API_KEY")
         if not self.api_key:
             raise ValueError("CAL_API_KEY is required to initialize CalClient")
-        self.base_url = "https://api.cal.com/v1"
+        self.base_url = "https://api.cal.com/v2"
+        self.headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "cal-api-version": "2024-08-13",
+            "Content-Type": "application/json"
+        }
 
     async def get_available_slots(self, date_from: str, date_to: str, event_type_id: int) -> Dict[str, Any]:
         """
@@ -28,17 +33,16 @@ class CalClient:
             A dictionary containing available slots.
         """
         params = {
-            "startTime": f"{date_from}T00:00:00Z",
-            "endTime": f"{date_to}T23:59:59Z",
-            "eventTypeId": event_type_id,
-            "apiKey": self.api_key
+            "start": f"{date_from}T00:00:00Z",
+            "end": f"{date_to}T23:59:59Z",
+            "eventTypeId": event_type_id
         }
         query_string = urllib.parse.urlencode(params)
         url = f"{self.base_url}/slots?{query_string}"
         
         logger.info(f"Fetching slots from {date_from} to {date_to} for event {event_type_id}")
         
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(headers=self.headers) as session:
             async with session.get(url) as response:
                 if response.status != 200:
                     error_msg = await response.text()
@@ -59,25 +63,25 @@ class CalClient:
         Returns:
             The booking response object.
         """
-        url = f"{self.base_url}/bookings?apiKey={self.api_key}"
+        url = f"{self.base_url}/bookings"
         
         payload = {
-            "eventTypeId": event_type_id,
             "start": start_time,
-            "responses": {
+            "eventTypeId": event_type_id,
+            "attendee": {
                 "name": name,
                 "email": email,
-                "location": "Smile Garden Dental Clinic"
+                "timeZone": "Asia/Kolkata",
+                "language": "en"
             },
-            "timeZone": "Asia/Kolkata", # Setting local timezone for Chennai
-            "language": "en"
+            "location": "Smile Garden Dental Clinic"
         }
         
         logger.info(f"Creating booking for {name} at {start_time}")
         
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(headers=self.headers) as session:
             async with session.post(url, json=payload) as response:
-                if response.status != 200 and response.status != 201:
+                if response.status not in (200, 201):
                     error_msg = await response.text()
                     logger.error(f"Failed to create booking: {error_msg}")
                     response.raise_for_status()
@@ -94,15 +98,14 @@ class CalClient:
             Dictionary containing the user's bookings.
         """
         params = {
-            "attendeeEmail": email,
-            "apiKey": self.api_key
+            "attendeeEmail": email
         }
         query_string = urllib.parse.urlencode(params)
         url = f"{self.base_url}/bookings?{query_string}"
         
         logger.info(f"Fetching bookings for email {email}")
         
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(headers=self.headers) as session:
             async with session.get(url) as response:
                 if response.status != 200:
                     error_msg = await response.text()
@@ -110,53 +113,54 @@ class CalClient:
                     response.raise_for_status()
                 return await response.json()
 
-    async def cancel_booking(self, booking_id: int, cancel_reason: str) -> Dict[str, Any]:
+    async def cancel_booking(self, booking_id: Union[str, int], cancel_reason: str) -> Dict[str, Any]:
         """
         Cancel an existing booking.
         
         Args:
-            booking_id: The ID of the booking to cancel.
+            booking_id: The UID of the booking to cancel.
             cancel_reason: The reason for cancellation.
             
         Returns:
             The cancellation response object.
         """
-        url = f"{self.base_url}/bookings/{booking_id}/cancel?apiKey={self.api_key}"
+        url = f"{self.base_url}/bookings/{booking_id}/cancel"
         
         payload = {
-            "reason": cancel_reason
+            "cancellationReason": cancel_reason
         }
         
         logger.info(f"Canceling booking {booking_id} with reason: {cancel_reason}")
         
-        async with aiohttp.ClientSession() as session:
-            async with session.delete(url, json=payload) as response:
+        async with aiohttp.ClientSession(headers=self.headers) as session:
+            async with session.post(url, json=payload) as response:
                 if response.status not in (200, 201):
                     error_msg = await response.text()
                     logger.error(f"Failed to cancel booking: {error_msg}")
                     response.raise_for_status()
                 return await response.json()
 
-    async def reschedule_booking(self, booking_id: int, new_start_time: str) -> Dict[str, Any]:
+    async def reschedule_booking(self, booking_id: Union[str, int], new_start_time: str) -> Dict[str, Any]:
         """
         Reschedule an existing booking to a new start time.
         
         Args:
-            booking_id: The ID of the booking to reschedule.
+            booking_id: The UID of the booking to reschedule.
             new_start_time: ISO 8601 formatted new start time.
             
         Returns:
             The rescheduled booking response object.
         """
-        url = f"{self.base_url}/bookings/{booking_id}/reschedule?apiKey={self.api_key}"
+        url = f"{self.base_url}/bookings/{booking_id}/reschedule"
         
         payload = {
-            "start": new_start_time
+            "start": new_start_time,
+            "reschedulingReason": "Patient requested reschedule via Voice AI"
         }
         
         logger.info(f"Rescheduling booking {booking_id} to {new_start_time}")
         
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(headers=self.headers) as session:
             async with session.post(url, json=payload) as response:
                 if response.status not in (200, 201):
                     error_msg = await response.text()
