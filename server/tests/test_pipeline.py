@@ -20,6 +20,7 @@ class TestPipeline(unittest.TestCase):
             
             self.assertIn('stt', kwargs)
             self.assertIn('llm', kwargs)
+            self.assertIn('tts', kwargs)
             self.assertIn('instructions', kwargs)
             
             # verify Neighborhood Nurse persona

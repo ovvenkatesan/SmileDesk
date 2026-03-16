@@ -1,5 +1,6 @@
 from livekit.agents.voice import Agent as VoiceAgent
 from livekit.plugins import deepgram, google
+from sarvam_tts import SarvamTTS
 import logging
 
 logger = logging.getLogger("voice-agent")
@@ -15,10 +16,12 @@ def create_agent() -> VoiceAgent:
     
     stt = deepgram.STT()
     llm = google.LLM(model="gemini-2.0-flash-001") # Configure with appropriate gemini model
+    tts = SarvamTTS()
 
     agent = VoiceAgent(
         stt=stt,
         llm=llm,
+        tts=tts,
         instructions=SYSTEM_PROMPT
     )
     
