@@ -32,9 +32,13 @@ class CalClient:
         Returns:
             A dictionary containing available slots.
         """
+        # Ensure we only use the YYYY-MM-DD part in case the AI passes a full ISO string
+        clean_date_from = date_from[:10]
+        clean_date_to = date_to[:10]
+        
         params = {
-            "startTime": f"{date_from}T00:00:00Z",
-            "endTime": f"{date_to}T23:59:59Z",
+            "startTime": f"{clean_date_from}T00:00:00Z",
+            "endTime": f"{clean_date_to}T23:59:59Z",
             "eventTypeId": event_type_id
         }
         query_string = urllib.parse.urlencode(params)
