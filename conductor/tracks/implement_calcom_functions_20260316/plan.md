@@ -4,10 +4,10 @@
 - [x] Task: Create `cal_client.py` to handle raw HTTP requests to Cal.com. a6954aa
     - [ ] Implement `get_available_slots(date_from, date_to, event_type_id)`.
     - [ ] Implement `create_booking(name, email, start_time, event_type_id)`.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Create Cal.com API Client' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Create Cal.com API Client' (Protocol in workflow.md) [checkpoint: 1679ce9]
 
 ## Phase 2: Define LiveKit AI Tools
-- [ ] Task: Create `tools.py` with `@llm.ai_callable` decorators.
+- [~] Task: Create `tools.py` with `@llm.ai_callable` decorators.
     - [ ] Define `AssistantTools` class inheriting from `llm.FunctionContext`.
     - [ ] Implement `check_availability` method wrapping the API client.
     - [ ] Implement `book_appointment` method wrapping the API client.
