@@ -2,6 +2,7 @@ import asyncio
 import base64
 import logging
 import os
+import langid
 
 import aiohttp
 from livekit.agents import tts, utils, APIConnectOptions, DEFAULT_API_CONNECT_OPTIONS, APIStatusError, APITimeoutError, APIConnectionError
@@ -46,9 +47,15 @@ class SarvamTTS(tts.TTS):
 class SarvamChunkedStream(tts.ChunkedStream):
     async def _run(self, output_emitter: tts.AudioEmitter) -> None:
         try:
+            # Detect language using langid. If it detects Tamil ('ta'), set target to 'ta-IN', else default to 'en-IN'
+            detected_lang, _ = langid.classify(self._input_text)
+            target_lang_code = "ta-IN" if detected_lang == "ta" else "en-IN"
+            
+            logger.info(f"Detected language: {detected_lang}, using TTS target: {target_lang_code}")
+
             payload = {
                 "inputs": [self._input_text],
-                "target_language_code": "en-IN", 
+                "target_language_code": target_lang_code, 
                 "speaker": self._tts._speaker,
                 "model": self._tts.model,
                 "speech_sample_rate": self._tts.sample_rate,
