@@ -26,5 +26,13 @@ class TestDependencies(unittest.TestCase):
             installed = False
         self.assertTrue(installed, "livekit-plugins-google is not installed")
 
+    def test_aiohttp_installed(self):
+        try:
+            importlib.import_module('aiohttp')
+            installed = True
+        except ImportError:
+            installed = False
+        self.assertTrue(installed, "aiohttp is not installed")
+
 if __name__ == '__main__':
     unittest.main()
