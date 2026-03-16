@@ -8,11 +8,11 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Update API Client' (Protocol in workflow.md) [checkpoint: b66d965]
 
 ## Phase 2: Update AI Tools (`tools.py`)
-- [ ] Task: Expose new capabilities to Gemini.
-    - [ ] Add `@llm.function_tool` for `cancel_appointment`.
-    - [ ] Add `@llm.function_tool` for `reschedule_appointment`.
-    - [ ] Include logic to first lookup the booking ID using email if the patient doesn't know their ID.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Update AI Tools' (Protocol in workflow.md)
+- [x] Task: Expose new capabilities to Gemini. d533099
+    - [x] Add `@llm.function_tool` for `cancel_appointment`.
+    - [x] Add `@llm.function_tool` for `reschedule_appointment`.
+    - [x] Include logic to first lookup the booking ID using email if the patient doesn't know their ID.
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Update AI Tools' (Protocol in workflow.md) [checkpoint: c258d2e]
 
 ## Phase 3: Agent Prompt Integration
 - [ ] Task: Update `pipeline.py` system prompt.
