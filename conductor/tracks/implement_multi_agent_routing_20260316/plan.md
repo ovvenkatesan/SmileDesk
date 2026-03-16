@@ -8,7 +8,7 @@
     - [x] Both agents should have access to `AssistantTools` for booking.
 
 ## Phase 2: Create Triage Agent & Handoff Tools
-- [ ] Task: Implement the `TriageAgent`.
+- [~] Task: Implement the `TriageAgent`.
     - [ ] Write a prompt for the TriageAgent to greet in both languages and determine preference.
     - [ ] Implement `@llm.function_tool` methods `transfer_to_english` and `transfer_to_tamil`.
     - [ ] Ensure handoff copies the `chat_ctx` so history is preserved.
