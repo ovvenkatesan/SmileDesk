@@ -1,0 +1,7 @@
+project_context:
+  stakes: business
+working_relationship:
+  involvement_level: balanced
+existing_materials:
+  has_materials: true
+  previous_brief: "A specialized Voice AI support agent designed for Smile Garden. The system will automate patient appointment scheduling, rescheduling, and reminder calls through both a web-based voice interface and traditional phone lines, providing a seamless 24/7 conversational experience for dental patients."

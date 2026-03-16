@@ -1,0 +1,36 @@
+installation:
+  version: 6.1.0
+  installDate: 2026-03-15T13:47:41.263Z
+  lastUpdated: 2026-03-15T13:47:41.263Z
+modules:
+  - name: core
+    version: 6.1.0
+    installDate: 2026-03-15T13:47:40.286Z
+    lastUpdated: 2026-03-15T13:47:40.286Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: bmm
+    version: 6.1.0
+    installDate: 2026-03-15T13:47:27.881Z
+    lastUpdated: 2026-03-15T13:47:40.286Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: cis
+    version: 0.1.8
+    installDate: 2026-03-15T13:47:31.219Z
+    lastUpdated: 2026-03-15T13:47:40.777Z
+    source: external
+    npmPackage: bmad-creative-intelligence-suite
+    repoUrl: https://github.com/bmad-code-org/bmad-module-creative-intelligence-suite
+  - name: wds
+    version: 0.3.0
+    installDate: 2026-03-15T13:47:35.461Z
+    lastUpdated: 2026-03-15T13:47:41.263Z
+    source: external
+    npmPackage: bmad-method-wds-expansion
+    repoUrl: https://github.com/bmad-code-org/bmad-method-wds-expansion
+ides:
+  - gemini
+  - antigravity
