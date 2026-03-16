@@ -16,7 +16,7 @@
 - [x] Task: Integrate Speech-to-Text (STT) and LLM. 3a74d48
     - [ ] Configure Deepgram plugin for real-time transcription.
     - [ ] Configure Gemini 2.0 plugin with the "Neighborhood Nurse" system prompt.
-- [ ] Task: Integrate Text-to-Speech (TTS).
+- [x] Task: Integrate Text-to-Speech (TTS). 40b2414
     - [ ] Configure Sarvam.ai TTS for voice synthesis.
     - [ ] Wire the STT -> LLM -> TTS pipeline together using the LiveKit VoiceAssistant class or custom logic.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: AI Pipeline Integration' (Protocol in workflow.md)
