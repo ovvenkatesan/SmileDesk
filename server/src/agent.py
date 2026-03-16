@@ -1,8 +1,7 @@
 import logging
 from dotenv import load_dotenv
 from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli, llm
-from livekit.agents.voice import Agent as VoiceAgent
-from livekit.plugins import deepgram, google
+from pipeline import create_agent
 
 load_dotenv()
 logger = logging.getLogger("voice-agent")
@@ -16,8 +15,10 @@ async def entrypoint(ctx: JobContext):
     logger.info(f"Connecting to room {ctx.room.name}")
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
 
-    # Initialize Voice Assistant with basic configurations
-    # We will expand this in the next task with actual models
+    # Initialize Voice Assistant with configured STT and LLM
+    agent = create_agent()
+    
+    agent.start(ctx.room)
     logger.info("Agent connected and ready")
 
 if __name__ == "__main__":
