@@ -25,4 +25,4 @@
 - [x] Task: Implement basic connection testing. 2e3479a
     - [ ] Add logging to verify state transitions and latency.
     - [ ] Test the agent locally using the LiveKit Sandbox or a simple client.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Testing & Refinement' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Testing & Refinement' (Protocol in workflow.md) [checkpoint: 89576ea]
