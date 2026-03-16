@@ -25,4 +25,20 @@ def create_agent() -> VoiceAgent:
         instructions=SYSTEM_PROMPT
     )
     
+    @agent.on("user_started_speaking")
+    def _on_user_started_speaking():
+        logger.info("User started speaking...")
+
+    @agent.on("user_stopped_speaking")
+    def _on_user_stopped_speaking():
+        logger.info("User stopped speaking. Processing intent...")
+
+    @agent.on("agent_started_speaking")
+    def _on_agent_started_speaking():
+        logger.info("Agent started speaking...")
+
+    @agent.on("agent_stopped_speaking")
+    def _on_agent_stopped_speaking():
+        logger.info("Agent stopped speaking.")
+        
     return agent
