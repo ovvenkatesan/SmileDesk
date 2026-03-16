@@ -30,9 +30,11 @@ For rescheduling, find a new available slot using `check_availability`, confirm 
 def create_agent() -> tuple[Agent, AgentSession]:
     """Creates and configures the Voice Pipeline Agent and Session."""
     
+    # We configure STT for Tamil explicitly as Deepgram's "multi" mode doesn't support Tamil in streaming yet.
+    # The Nova-3 model will process the audio using the `ta` endpoint.
     stt = deepgram.STT(
-        language="multi",
-        model="nova-3"
+        language="ta",
+        model="nova-3-general"
     )
     llm = google.LLM(model="gemini-3.1-flash-lite-preview") # Configure with appropriate gemini model
     tts = SarvamTTS()
