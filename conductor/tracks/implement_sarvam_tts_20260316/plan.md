@@ -1,7 +1,7 @@
 # Implementation Plan: Sarvam TTS Integration
 
 ## Phase 1: Research and SDK Setup
-- [ ] Task: Research Sarvam TTS Python integration and update requirements.
+- [x] Task: Research Sarvam TTS Python integration and update requirements. 92e5d1f
     - [ ] Add `requests` or `aiohttp` to `server/requirements.txt` if needed for REST API, or add Sarvam SDK if one exists.
     - [ ] Update `server/tests/test_deps.py`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Research and SDK Setup' (Protocol in workflow.md)
