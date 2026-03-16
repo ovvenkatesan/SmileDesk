@@ -9,8 +9,8 @@
     - [x] Review `SarvamTTS` implementation to ensure it correctly passes the target language to the Sarvam API based on the LLM's output, or verify if Sarvam auto-detects.
 
 ## Phase 3: Prompt Engineering
-- [ ] Task: Update the `get_system_prompt()` in `pipeline.py`.
-    - [ ] Add explicit instructions: "You are fully bilingual in English and Tamil. Detect the language the user is speaking and reply in the exact same language. Do not mix languages within a single sentence unless necessary for medical terms."
+- [x] Task: Update the `get_system_prompt()` in `pipeline.py`. debb087
+    - [x] Add explicit instructions: "You are fully bilingual in English and Tamil. Detect the language the user is speaking and reply in the exact same language. Do not mix languages within a single sentence unless necessary for medical terms."
 
 ## Phase 4: Testing & Verification
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Testing & Verification' (Protocol in workflow.md)
