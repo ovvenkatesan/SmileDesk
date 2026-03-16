@@ -13,5 +13,5 @@
     - [x] Add explicit instructions: "You are fully bilingual in English and Tamil. Detect the language the user is speaking and reply in the exact same language. Do not mix languages within a single sentence unless necessary for medical terms."
 
 ## Phase 4: Testing & Verification
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Testing & Verification' (Protocol in workflow.md)
-    - [ ] Manually test the agent by speaking to it in Tamil and verifying it responds accurately in Tamil using the Sarvam voice.
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Testing & Verification' (Protocol in workflow.md) [checkpoint: d1e9593]
+    - [x] Manually test the agent by speaking to it in Tamil and verifying it responds accurately in Tamil using the Sarvam voice.
