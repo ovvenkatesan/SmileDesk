@@ -18,5 +18,5 @@
     - [x] Set the initial agent to `TriageAgent`.
 
 ## Phase 4: Testing & Verification
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Testing & Verification' (Protocol in workflow.md)
-    - [ ] Verify the agent greets the user, detects the language, and successfully transitions to the correct TTS and Persona without dropping the call.
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Testing & Verification' (Protocol in workflow.md) [checkpoint: 3d382b9]
+    - [x] Verify the agent greets the user, detects the language, and successfully transitions to the correct TTS and Persona without dropping the call.
