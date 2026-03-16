@@ -33,12 +33,12 @@ class CalClient:
             A dictionary containing available slots.
         """
         params = {
-            "start": f"{date_from}T00:00:00Z",
-            "end": f"{date_to}T23:59:59Z",
+            "startTime": f"{date_from}",
+            "endTime": f"{date_to}",
             "eventTypeId": event_type_id
         }
         query_string = urllib.parse.urlencode(params)
-        url = f"{self.base_url}/slots?{query_string}"
+        url = f"{self.base_url}/slots/available?{query_string}"
         
         logger.info(f"Fetching slots from {date_from} to {date_to} for event {event_type_id}")
         
