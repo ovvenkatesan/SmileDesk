@@ -31,8 +31,8 @@ def create_agent() -> tuple[Agent, AgentSession]:
     """Creates and configures the Voice Pipeline Agent and Session."""
     
     stt = deepgram.STT(
-        language="en-US,ta-IN",
-        detect_language=True
+        language="multi",
+        model="nova-3"
     )
     llm = google.LLM(model="gemini-3.1-flash-lite-preview") # Configure with appropriate gemini model
     tts = SarvamTTS()
