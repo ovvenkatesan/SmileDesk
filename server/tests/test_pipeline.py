@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 class TestPipeline(unittest.TestCase):
-    @patch.dict(os.environ, {"DEEPGRAM_API_KEY": "fake_key", "GEMINI_API_KEY": "fake_key", "GOOGLE_API_KEY": "fake_key"})
+    @patch.dict(os.environ, {"DEEPGRAM_API_KEY": "fake_key", "GEMINI_API_KEY": "fake_key", "GOOGLE_API_KEY": "fake_key", "SARVAM_API_KEY": "fake_key", "CAL_API_KEY": "fake_key"})
     @patch('pipeline.Agent')
     @patch('pipeline.AgentSession')
     def test_voice_pipeline_config(self, mock_session_class, mock_agent_class):

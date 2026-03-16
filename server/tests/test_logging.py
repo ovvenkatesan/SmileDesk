@@ -7,7 +7,7 @@ import asyncio
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 class TestLogging(unittest.TestCase):
-    @patch.dict(os.environ, {"DEEPGRAM_API_KEY": "fake_key", "GEMINI_API_KEY": "fake_key", "GOOGLE_API_KEY": "fake_key"})
+    @patch.dict(os.environ, {"DEEPGRAM_API_KEY": "fake_key", "GEMINI_API_KEY": "fake_key", "GOOGLE_API_KEY": "fake_key", "SARVAM_API_KEY": "fake_key", "CAL_API_KEY": "fake_key"})
     @patch('pipeline.AgentSession')
     def test_agent_events_registered(self, mock_session_class):
         try:

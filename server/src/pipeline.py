@@ -1,6 +1,7 @@
 from livekit.agents.voice import Agent, AgentSession
 from livekit.plugins import deepgram, google
 from sarvam_tts import SarvamTTS
+from tools import AssistantTools
 import logging
 
 logger = logging.getLogger("voice-agent")
@@ -9,6 +10,8 @@ SYSTEM_PROMPT = """You are the Smile Garden Voice AI Agent, adopting the persona
 You are empathetic, reassuring, highly competent, and grounded. 
 Never sound robotic or overly technical. 
 Acknowledge patient anxieties and provide a frictionless path to booking an emergency slot or finding information.
+
+When a patient asks to book an appointment, check the available slots using `check_availability` first, then offer a time. Once they confirm, use `book_appointment` to finalize it.
 """
 
 def create_agent() -> tuple[Agent, AgentSession]:
@@ -17,9 +20,11 @@ def create_agent() -> tuple[Agent, AgentSession]:
     stt = deepgram.STT()
     llm = google.LLM(model="gemini-2.5-flash") # Configure with appropriate gemini model
     tts = SarvamTTS()
+    tools = AssistantTools()
 
     agent = Agent(
-        instructions=SYSTEM_PROMPT
+        instructions=SYSTEM_PROMPT,
+        tools=[tools]
     )
     
     session = AgentSession(
