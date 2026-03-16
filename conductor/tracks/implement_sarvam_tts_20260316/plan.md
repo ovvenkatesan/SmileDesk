@@ -18,4 +18,4 @@
 - [x] Task: Write unit tests for `SarvamTTS`. 995c0d7
     - [ ] Mock the API response to avoid actual billing during tests.
     - [ ] Verify that audio frames are yielded correctly.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Testing and Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Testing and Integration' (Protocol in workflow.md) [checkpoint: b73237a]
