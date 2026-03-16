@@ -82,3 +82,84 @@ class CalClient:
                     logger.error(f"Failed to create booking: {error_msg}")
                     response.raise_for_status()
                 return await response.json()
+
+    async def get_booking_by_email(self, email: str) -> Dict[str, Any]:
+        """
+        Fetch bookings for a specific email.
+        
+        Args:
+            email: Patient's email.
+            
+        Returns:
+            Dictionary containing the user's bookings.
+        """
+        params = {
+            "attendeeEmail": email,
+            "apiKey": self.api_key
+        }
+        query_string = urllib.parse.urlencode(params)
+        url = f"{self.base_url}/bookings?{query_string}"
+        
+        logger.info(f"Fetching bookings for email {email}")
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status != 200:
+                    error_msg = await response.text()
+                    logger.error(f"Failed to fetch bookings: {error_msg}")
+                    response.raise_for_status()
+                return await response.json()
+
+    async def cancel_booking(self, booking_id: int, cancel_reason: str) -> Dict[str, Any]:
+        """
+        Cancel an existing booking.
+        
+        Args:
+            booking_id: The ID of the booking to cancel.
+            cancel_reason: The reason for cancellation.
+            
+        Returns:
+            The cancellation response object.
+        """
+        url = f"{self.base_url}/bookings/{booking_id}/cancel?apiKey={self.api_key}"
+        
+        payload = {
+            "reason": cancel_reason
+        }
+        
+        logger.info(f"Canceling booking {booking_id} with reason: {cancel_reason}")
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.delete(url, json=payload) as response:
+                if response.status not in (200, 201):
+                    error_msg = await response.text()
+                    logger.error(f"Failed to cancel booking: {error_msg}")
+                    response.raise_for_status()
+                return await response.json()
+
+    async def reschedule_booking(self, booking_id: int, new_start_time: str) -> Dict[str, Any]:
+        """
+        Reschedule an existing booking to a new start time.
+        
+        Args:
+            booking_id: The ID of the booking to reschedule.
+            new_start_time: ISO 8601 formatted new start time.
+            
+        Returns:
+            The rescheduled booking response object.
+        """
+        url = f"{self.base_url}/bookings/{booking_id}/reschedule?apiKey={self.api_key}"
+        
+        payload = {
+            "start": new_start_time
+        }
+        
+        logger.info(f"Rescheduling booking {booking_id} to {new_start_time}")
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as response:
+                if response.status not in (200, 201):
+                    error_msg = await response.text()
+                    logger.error(f"Failed to reschedule booking: {error_msg}")
+                    response.raise_for_status()
+                return await response.json()
