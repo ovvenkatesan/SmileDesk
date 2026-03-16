@@ -7,10 +7,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Create Cal.com API Client' (Protocol in workflow.md) [checkpoint: 1679ce9]
 
 ## Phase 2: Define LiveKit AI Tools
-- [~] Task: Create `tools.py` with `@llm.ai_callable` decorators.
-    - [ ] Define `AssistantTools` class inheriting from `llm.FunctionContext`.
-    - [ ] Implement `check_availability` method wrapping the API client.
-    - [ ] Implement `book_appointment` method wrapping the API client.
+- [x] Task: Create `tools.py` with `@llm.ai_callable` decorators. 814a15a
+    - [x] Define `AssistantTools` class.
+    - [x] Implement `check_availability` method wrapping the API client.
+    - [x] Implement `book_appointment` method wrapping the API client.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Define LiveKit AI Tools' (Protocol in workflow.md)
 
 ## Phase 3: Agent Integration
