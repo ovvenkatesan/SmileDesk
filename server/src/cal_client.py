@@ -33,8 +33,8 @@ class CalClient:
             A dictionary containing available slots.
         """
         params = {
-            "startTime": f"{date_from}",
-            "endTime": f"{date_to}",
+            "startTime": f"{date_from}T00:00:00Z",
+            "endTime": f"{date_to}T23:59:59Z",
             "eventTypeId": event_type_id
         }
         query_string = urllib.parse.urlencode(params)
