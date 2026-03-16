@@ -16,9 +16,9 @@ async def entrypoint(ctx: JobContext):
     await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
 
     # Initialize Voice Assistant with configured STT and LLM
-    agent = create_agent()
+    agent, session = create_agent()
     
-    agent.start(ctx.room)
+    await session.start(agent, room=ctx.room)
     logger.info("Agent connected and ready")
 
 if __name__ == "__main__":

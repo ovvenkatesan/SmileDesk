@@ -1,4 +1,4 @@
-from livekit.agents.voice import Agent as VoiceAgent
+from livekit.agents.voice import Agent, AgentSession
 from livekit.plugins import deepgram, google
 from sarvam_tts import SarvamTTS
 import logging
@@ -11,34 +11,35 @@ Never sound robotic or overly technical.
 Acknowledge patient anxieties and provide a frictionless path to booking an emergency slot or finding information.
 """
 
-def create_agent() -> VoiceAgent:
-    """Creates and configures the Voice Pipeline Agent."""
+def create_agent() -> tuple[Agent, AgentSession]:
+    """Creates and configures the Voice Pipeline Agent and Session."""
     
     stt = deepgram.STT()
     llm = google.LLM(model="gemini-2.0-flash-001") # Configure with appropriate gemini model
     tts = SarvamTTS()
 
-    agent = VoiceAgent(
-        stt=stt,
-        llm=llm,
-        tts=tts,
+    agent = Agent(
         instructions=SYSTEM_PROMPT
     )
     
-    @agent.on("user_started_speaking")
-    def _on_user_started_speaking():
-        logger.info("User started speaking...")
+    session = AgentSession(
+        stt=stt,
+        llm=llm,
+        tts=tts
+    )
+    
+    @session.on("user_state_changed")
+    def _on_user_state_changed(state):
+        if state == "speaking":
+            logger.info("User started speaking...")
+        elif state == "listening":
+            logger.info("User stopped speaking. Processing intent...")
 
-    @agent.on("user_stopped_speaking")
-    def _on_user_stopped_speaking():
-        logger.info("User stopped speaking. Processing intent...")
-
-    @agent.on("agent_started_speaking")
-    def _on_agent_started_speaking():
-        logger.info("Agent started speaking...")
-
-    @agent.on("agent_stopped_speaking")
-    def _on_agent_stopped_speaking():
-        logger.info("Agent stopped speaking.")
+    @session.on("agent_state_changed")
+    def _on_agent_state_changed(state):
+        if state == "speaking":
+            logger.info("Agent started speaking...")
+        elif state == "listening":
+            logger.info("Agent stopped speaking.")
         
-    return agent
+    return agent, session
