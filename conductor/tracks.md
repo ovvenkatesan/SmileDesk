@@ -9,6 +9,3 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Implement Cal.com Function Calling**
   *Link: [./tracks/implement_calcom_functions_20260316/](./tracks/implement_calcom_functions_20260316/)*
-
-- [x] **Track: Implement Multi-Agent Language Routing**
-  *Link: [./tracks/implement_multi_agent_routing_20260316/](./tracks/implement_multi_agent_routing_20260316/)*
