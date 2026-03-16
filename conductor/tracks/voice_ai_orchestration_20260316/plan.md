@@ -19,7 +19,7 @@
 - [x] Task: Integrate Text-to-Speech (TTS). 40b2414
     - [ ] Configure Sarvam.ai TTS for voice synthesis.
     - [ ] Wire the STT -> LLM -> TTS pipeline together using the LiveKit VoiceAssistant class or custom logic.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: AI Pipeline Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: AI Pipeline Integration' (Protocol in workflow.md) [checkpoint: 2db82ae]
 
 ## Phase 4: Testing & Refinement
 - [ ] Task: Implement basic connection testing.
