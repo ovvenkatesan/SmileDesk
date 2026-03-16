@@ -22,7 +22,10 @@ class AssistantTools:
             
             # Extract slots from the response - Cal.com v2 structure might vary slightly 
             # Check for 'data' key or 'slots' key depending on exact API payload
-            slots_data = slots_response.get("data", slots_response.get("slots", {}))
+            if "data" in slots_response and isinstance(slots_response["data"], dict) and "slots" in slots_response["data"]:
+                slots_data = slots_response["data"]["slots"]
+            else:
+                slots_data = slots_response.get("slots", slots_response.get("data", {}))
             
             if not slots_data:
                 return "No available slots found for the requested dates."
