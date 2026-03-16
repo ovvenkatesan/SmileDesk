@@ -10,5 +10,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [x] **Track: Implement Cal.com Function Calling**
   *Link: [./tracks/implement_calcom_functions_20260316/](./tracks/implement_calcom_functions_20260316/)*
 
-- [~] **Track: Implement Appointment Rescheduling and Cancellations**
+- [x] **Track: Implement Appointment Rescheduling and Cancellations**
   *Link: [./tracks/implement_appointment_rescheduling_20260316/](./tracks/implement_appointment_rescheduling_20260316/)*
