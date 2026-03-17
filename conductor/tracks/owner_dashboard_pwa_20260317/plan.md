@@ -48,4 +48,4 @@
 - [x] Task: Implement Call Details drill-down. a88d877
     - [x] Create a modal or slide-over panel for viewing a specific call.
     - [x] Display the fetched call transcript and AI sentiment analysis.
-- [~] Task: Conductor - User Manual Verification 'Phase 5: Data Integration & Call Details' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 5: Data Integration & Call Details' (Protocol in workflow.md) [checkpoint: ca9a52a]
