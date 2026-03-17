@@ -22,10 +22,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Next.js Initialization & PWA Setup' (Protocol in workflow.md) [checkpoint: 00210d4]
 
 ## Phase 3: Firebase Auth Integration
-- [~] Task: Setup Firebase client.
-    - [ ] Install `firebase` SDK in the dashboard project.
-    - [ ] Create Firebase configuration module using environment variables.
-- [ ] Task: Build Login Flow.
+- [x] Task: Setup Firebase client. e716200
+    - [x] Install `firebase` SDK in the dashboard project.
+    - [x] Create Firebase configuration module using environment variables.
+- [~] Task: Build Login Flow.
     - [ ] Create an SMS OTP login page UI.
     - [ ] Implement Firebase RecaptchaVerifier and signInWithPhoneNumber logic.
     - [ ] Create a protected route wrapper for the dashboard.
