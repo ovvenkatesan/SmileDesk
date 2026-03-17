@@ -19,8 +19,8 @@
 - [x] Task: Handle button click and microphone permissions. a48d9e2
     - [x] Request microphone access when the FAB is clicked.
     - [x] Initiate connection to the LiveKit room and handle token generation (or static token setup for testing).
-- [~] Task: Wire up UI state to connection events.
-    - [ ] Update visual state based on connection events (connecting, connected, disconnected).
-    - [ ] Implement click-to-disconnect logic.
-    - [ ] Handle audio playback of the remote agent's track.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Connection Logic and State Management' (Protocol in workflow.md)
+- [x] Task: Wire up UI state to connection events. a3b44a3
+    - [x] Update visual state based on connection events (connecting, connected, disconnected).
+    - [x] Implement click-to-disconnect logic.
+    - [x] Handle audio playback of the remote agent's track.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Connection Logic and State Management' (Protocol in workflow.md) [checkpoint: 02240ea]
