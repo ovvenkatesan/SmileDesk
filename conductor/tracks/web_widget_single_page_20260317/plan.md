@@ -4,13 +4,13 @@
 - [x] Task: Create basic `index.html` structure. 94337b4
     - [x] Add basic Smile Garden Dental branding layout.
     - [x] Link a CSS file for styling and responsiveness.
-- [~] Task: Add Voice Agent floating action button (FAB) UI.
-    - [ ] Implement bottom-right anchored button.
-    - [ ] Add basic hover and state styles (default, connecting, active).
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Setup and Basic HTML Structure' (Protocol in workflow.md)
+- [x] Task: Add Voice Agent floating action button (FAB) UI. faa3bcb
+    - [x] Implement bottom-right anchored button.
+    - [x] Add basic hover and state styles (default, connecting, active).
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Setup and Basic HTML Structure' (Protocol in workflow.md) [checkpoint: 08c30c4]
 
 ## Phase 2: LiveKit SDK Integration
-- [ ] Task: Setup LiveKit JS Client SDK.
+- [~] Task: Setup LiveKit JS Client SDK.
     - [ ] Import the LiveKit JS SDK via CDN.
     - [ ] Create `widget.js` to manage the LiveKit `Room` object.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: LiveKit SDK Integration' (Protocol in workflow.md)
