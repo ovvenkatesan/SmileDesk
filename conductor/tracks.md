@@ -12,5 +12,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Owner Dashboard PWA**
+- [x] **Track: Owner Dashboard PWA**
   *Link: [./tracks/owner_dashboard_pwa_20260317/](./tracks/owner_dashboard_pwa_20260317/)*
