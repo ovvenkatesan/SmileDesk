@@ -16,9 +16,9 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Python Worker Updates for SIP' (Protocol in workflow.md) [checkpoint: 4739ccf]
 
 ## Phase 3: Call Transfer Capability
-- [~] Task: Implement `transfer_call` tool.
-    - [ ] Add a new `@llm.function_tool` in `server/src/tools.py` named `transfer_call`.
-    - [ ] Implement the LiveKit Server API logic to issue a SIP Refer/Transfer command to the participant. *(Requires `livekit-api` package)*
-- [ ] Task: Register tool with the Agent.
-    - [ ] Ensure the new tool is passed to the Gemini LLM configuration.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Call Transfer Capability' (Protocol in workflow.md)
+- [x] Task: Implement `transfer_call` tool. 1e52e58
+    - [x] Add a new `@llm.function_tool` in `server/src/tools.py` named `transfer_call`.
+    - [x] Implement the LiveKit Server API logic to issue a SIP Refer/Transfer command to the participant. *(Requires `livekit-api` package)*
+- [x] Task: Register tool with the Agent. 1e52e58
+    - [x] Ensure the new tool is passed to the Gemini LLM configuration.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Call Transfer Capability' (Protocol in workflow.md) [checkpoint: 6b5c7e5]
