@@ -7,16 +7,16 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: SIP Ingress Configuration Documentation' (Protocol in workflow.md) [checkpoint: 8c555ef]
 
 ## Phase 2: Python Worker Updates for SIP
-- [~] Task: Extract Caller ID from metadata.
-    - [ ] Update `server/src/agent.py` to inspect the `ctx.room.participants` or connection metadata for the SIP caller's phone number upon connection.
-    - [ ] Pass the extracted phone number as context to `create_agent()` in `pipeline.py`.
-- [ ] Task: Update Agent Prompt.
-    - [ ] Update `server/src/pipeline.py` to accept the `caller_id` variable.
-    - [ ] Modify the initial prompt instructions to greet the user based on whether their number is known or unknown.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Python Worker Updates for SIP' (Protocol in workflow.md)
+- [x] Task: Extract Caller ID from metadata. a5ff3a6
+    - [x] Update `server/src/agent.py` to inspect the `ctx.room.participants` or connection metadata for the SIP caller's phone number upon connection.
+    - [x] Pass the extracted phone number as context to `create_agent()` in `pipeline.py`.
+- [x] Task: Update Agent Prompt. a5ff3a6
+    - [x] Update `server/src/pipeline.py` to accept the `caller_id` variable.
+    - [x] Modify the initial prompt instructions to greet the user based on whether their number is known or unknown.
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Python Worker Updates for SIP' (Protocol in workflow.md) [checkpoint: 4739ccf]
 
 ## Phase 3: Call Transfer Capability
-- [ ] Task: Implement `transfer_call` tool.
+- [~] Task: Implement `transfer_call` tool.
     - [ ] Add a new `@llm.function_tool` in `server/src/tools.py` named `transfer_call`.
     - [ ] Implement the LiveKit Server API logic to issue a SIP Refer/Transfer command to the participant. *(Requires `livekit-api` package)*
 - [ ] Task: Register tool with the Agent.
