@@ -25,11 +25,11 @@
 - [x] Task: Setup Firebase client. e716200
     - [x] Install `firebase` SDK in the dashboard project.
     - [x] Create Firebase configuration module using environment variables.
-- [~] Task: Build Login Flow.
-    - [ ] Create an SMS OTP login page UI.
-    - [ ] Implement Firebase RecaptchaVerifier and signInWithPhoneNumber logic.
-    - [ ] Create a protected route wrapper for the dashboard.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Firebase Auth Integration' (Protocol in workflow.md)
+- [x] Task: Build Login Flow. 305ee5a
+    - [x] Create an SMS OTP login page UI.
+    - [x] Implement Firebase RecaptchaVerifier and signInWithPhoneNumber logic.
+    - [x] Create a protected route wrapper for the dashboard.
+- [~] Task: Conductor - User Manual Verification 'Phase 3: Firebase Auth Integration' (Protocol in workflow.md)
 
 ## Phase 4: Bento Box Dashboard UI
 - [ ] Task: Build main dashboard layout.
