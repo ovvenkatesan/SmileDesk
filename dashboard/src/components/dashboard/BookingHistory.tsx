@@ -1,11 +1,21 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function BookingHistory() {
-  const bookings = [
-    { id: 101, date: "Mar 18, 09:00 AM", type: "Emergency", status: "Confirmed" },
-    { id: 102, date: "Mar 19, 02:00 PM", type: "Checkup", status: "Rescheduled" },
-    { id: 103, date: "Mar 20, 10:30 AM", type: "Consultation", status: "Confirmed" },
-  ];
+  const [bookings, setBookings] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/dashboard/bookings")
+      .then((res) => res.json())
+      .then((data) => setBookings(data))
+      .catch((err) => console.error("Error fetching Bookings:", err));
+  }, []);
+
+  if (bookings.length === 0) {
+    return <div className="p-4 text-sm text-muted-foreground">Loading bookings...</div>;
+  }
 
   return (
     <ScrollArea className="h-full">
@@ -16,7 +26,7 @@ export function BookingHistory() {
               <span className="font-semibold text-sm">{booking.type}</span>
               <span className="text-xs text-muted-foreground">{booking.status}</span>
             </div>
-            <div className="text-sm text-foreground">{booking.date}</div>
+            <div className="text-sm text-foreground">{new Date(booking.date).toLocaleString()}</div>
           </div>
         ))}
       </div>

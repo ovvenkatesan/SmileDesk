@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import {
   Table,
   Body,
@@ -9,13 +12,29 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
-export function CallLogs() {
-  // Mock data for UI layout phase
-  const calls = [
-    { id: 1, date: "2026-03-17 14:30", number: "+123****890", duration: "2m 25s", outcome: "Booked" },
-    { id: 2, date: "2026-03-17 11:15", number: "+198****321", duration: "1m 05s", outcome: "Questions" },
-    { id: 3, date: "2026-03-16 19:45", number: "+155****678", duration: "3m 10s", outcome: "Rescheduled" },
-  ];
+interface CallLogsProps {
+  onSelectCall?: (callId: string) => void;
+}
+
+export function CallLogs({ onSelectCall }: CallLogsProps) {
+  const [calls, setCalls] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/dashboard/calls")
+      .then((res) => res.json())
+      .then((data) => setCalls(data))
+      .catch((err) => console.error("Error fetching Calls:", err));
+  }, []);
+
+  if (calls.length === 0) {
+    return <div className="p-4 text-sm text-muted-foreground">Loading calls...</div>;
+  }
+
+  const formatDuration = (seconds: number) => {
+      const m = Math.floor(seconds / 60);
+      const s = seconds % 60;
+      return `${m}m ${s}s`;
+  };
 
   return (
     <div className="h-full flex flex-col">
@@ -30,13 +49,17 @@ export function CallLogs() {
         </TableHeader>
         <TableBody>
           {calls.map((call) => (
-            <TableRow key={call.id} className="cursor-pointer hover:bg-muted/50">
-              <TableCell className="font-medium">{call.date}</TableCell>
-              <TableCell>{call.number}</TableCell>
-              <TableCell>{call.duration}</TableCell>
+            <TableRow 
+                key={call.id} 
+                className="cursor-pointer hover:bg-muted/50"
+                onClick={() => onSelectCall && onSelectCall(call.id)}
+            >
+              <TableCell className="font-medium">{new Date(call.start_time).toLocaleString()}</TableCell>
+              <TableCell>{call.caller_number}</TableCell>
+              <TableCell>{formatDuration(call.duration_seconds)}</TableCell>
               <TableCell className="text-right">
-                <Badge variant={call.outcome === "Booked" ? "default" : "secondary"}>
-                  {call.outcome}
+                <Badge variant={call.outcome === "booked_appointment" ? "default" : "secondary"}>
+                  {call.outcome.replace("_", " ")}
                 </Badge>
               </TableCell>
             </TableRow>
