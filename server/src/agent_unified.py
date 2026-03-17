@@ -88,7 +88,8 @@ class UnifiedAgent(Agent):
                 tools_instance.book_appointment,
                 tools_instance.get_bookings,
                 tools_instance.cancel_appointment,
-                tools_instance.reschedule_appointment
+                tools_instance.reschedule_appointment,
+                tools_instance.transfer_call
             ],
             chat_ctx=chat_ctx
         )
