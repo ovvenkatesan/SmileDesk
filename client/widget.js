@@ -18,24 +18,52 @@ document.addEventListener('DOMContentLoaded', () => {
         dynacast: true,
     });
 
+    // Handle Room Events
+    room.on(RoomEvent.Connected, () => {
+        updateButtonState('active', 'Connected (Click to hang up)');
+        console.log('Room connected');
+    });
+
+    room.on(RoomEvent.Disconnected, () => {
+        updateButtonState('default', 'Talk to AI Concierge');
+        console.log('Room disconnected');
+    });
+
+    // Handle remote audio playback
+    room.on(RoomEvent.TrackSubscribed, (track, publication, participant) => {
+        if (track.kind === 'audio') {
+            const audioElement = track.attach();
+            // Optional: append to DOM if needed for some browser policies, 
+            // though LiveKit usually handles playing automatically.
+            document.body.appendChild(audioElement);
+            console.log('Attached remote audio track');
+        }
+    });
+    
+    room.on(RoomEvent.TrackUnsubscribed, (track, publication, participant) => {
+        track.detach();
+    });
+
     let isConnecting = false;
 
     // Handle button click
     callButton.addEventListener('click', async () => {
-        // If already connected, do nothing (disconnect logic handled in next task)
-        if (room.state === 'connected' || isConnecting) {
+        // Disconnect if already connected
+        if (room.state === 'connected') {
+            room.disconnect();
             return;
         }
+
+        if (isConnecting) return;
 
         try {
             isConnecting = true;
             updateButtonState('connecting', 'Connecting...');
 
-            // Request microphone access early to ensure permissions
+            // Request microphone access
             await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
 
             // For static testing: prompt for URL and Token
-            // In production, these should be fetched from your backend API
             const url = window.prompt("Enter LiveKit WebSocket URL (e.g., wss://your-project.livekit.cloud):");
             if (!url) throw new Error("Connection URL required.");
             
@@ -44,10 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Connect to LiveKit
             await room.connect(url, token);
-            console.log("LiveKit Room initialized and connected:", room);
             
-            // State updates for successful connection
-            updateButtonState('active', 'Connected (Click to hang up)');
+            // Note: State updates are handled by RoomEvent.Connected
             
         } catch (error) {
             console.error("Connection failed:", error);
