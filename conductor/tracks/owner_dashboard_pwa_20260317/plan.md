@@ -12,14 +12,14 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Backend API Setup' (Protocol in workflow.md) [checkpoint: ed368e6]
 
 ## Phase 2: Next.js Initialization & PWA Setup
-- [~] Task: Bootstrap Next.js project.
-    - [ ] Initialize Next.js app in a new `dashboard/` directory.
-    - [ ] Configure Tailwind CSS.
-    - [ ] Initialize `shadcn/ui` and apply "Minimal Soft" color palette to `tailwind.config.ts`.
-- [ ] Task: Configure PWA capabilities.
-    - [ ] Add `next-pwa` (or similar) plugin.
-    - [ ] Create `manifest.json` and basic icons for installation.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Next.js Initialization & PWA Setup' (Protocol in workflow.md)
+- [x] Task: Bootstrap Next.js project. e565066
+    - [x] Initialize Next.js app in a new `dashboard/` directory.
+    - [x] Configure Tailwind CSS.
+    - [x] Initialize `shadcn/ui` and apply "Minimal Soft" color palette to `tailwind.config.ts`.
+- [x] Task: Configure PWA capabilities. e565066
+    - [x] Add `next-pwa` (or similar) plugin.
+    - [x] Create `manifest.json` and basic icons for installation.
+- [~] Task: Conductor - User Manual Verification 'Phase 2: Next.js Initialization & PWA Setup' (Protocol in workflow.md)
 
 ## Phase 3: Firebase Auth Integration
 - [ ] Task: Setup Firebase client.
