@@ -74,14 +74,27 @@ class AssistantTools:
     ) -> str:
         logger.info(f"Tool called: book_appointment({name}, {phone}, {start_time})")
         try:
+            # Parse the proposed start time
+            try:
+                proposed_dt = datetime.fromisoformat(start_time.replace("Z", "+00:00"))
+            except ValueError:
+                return "Error: start_time must be a valid ISO 8601 string."
+
+            # Enforce 30-minute buffer rule
+            now_utc = datetime.now(timezone.utc)
+            buffer_time = now_utc + timedelta(minutes=30)
+
+            if proposed_dt < buffer_time:
+                return "Booking Error: You cannot book an appointment in the past or within the next 30 minutes. Please ask the user for a time that is at least 30 minutes from now."
+
             # Cal.com requires an email in the payload, but we are collecting a phone number from the user.
             # We use a dummy email derived from the phone number since phone is the primary contact method.
             dummy_email = f"{phone.replace(' ', '').replace('+', '')}@smilegarden.dummy"
             result = await self.cal_client.create_booking(name, dummy_email, start_time, event_type_id)
-            
+
             status = result.get("status") or result.get("data", {}).get("status")
             booking_id = result.get("id") or result.get("data", {}).get("uid") or result.get("data", {}).get("id")
-            
+
             if status in ["ACCEPTED", "PENDING", "SUCCESS"]:
                 return f"Successfully booked appointment! Booking ID is {booking_id} with status {status}."
             else:
@@ -89,32 +102,59 @@ class AssistantTools:
         except Exception as e:
             logger.error(f"Error creating booking: {e}")
             return "There was an error creating the booking. The time slot might be no longer available or there is a system issue."
-
-    @llm.function_tool(description="Lookup a user's existing appointment bookings by their email address.")
+    @llm.function_tool(description="Lookup a user's existing appointment bookings by their phone number.")
     async def get_bookings(
         self,
-        email: Annotated[str, "Patient's email address"]
+        phone: Annotated[str, "Patient's phone number"]
     ) -> str:
-        logger.info(f"Tool called: get_bookings({email})")
+        logger.info(f"Tool called: get_bookings({phone})")
         try:
-            result = await self.cal_client.get_booking_by_email(email)
-            
-            bookings_list = result.get("data", result.get("bookings", []))
-            
+            # We use the same dummy email logic here as we do in book_appointment
+            # Remove + and spaces
+            clean_phone = phone.replace(' ', '').replace('+', '')
+            # If the user says 9898433433, make sure it matches exactly what was booked
+            dummy_email = f"{clean_phone}@smilegarden.dummy"
+            result = await self.cal_client.get_booking_by_email(dummy_email)
+
+            # In Cal.com v2, the list of bookings is usually inside 'data'
+            bookings_list = []
+            if "data" in result and isinstance(result["data"], list):
+                bookings_list = result["data"]
+            elif "bookings" in result and isinstance(result["bookings"], list):
+                bookings_list = result["bookings"]
+
             if bookings_list:
                 bookings = []
+                ist_tz = timezone(timedelta(hours=5, minutes=30))
+                
                 for b in bookings_list:
                     b_id = b.get("uid", b.get("id"))
-                    b_time = b.get("start")
+                    # Handle different payload structures
+                    b_time_raw = b.get("startTime", b.get("start")) 
                     b_status = b.get("status")
-                    bookings.append(f"ID: {b_id}, Time: {b_time}, Status: {b_status}")
-                return f"Found bookings for {email}:\n" + "\n".join(bookings)
+                    
+                    # Convert UTC time to IST
+                    b_time_str = b_time_raw
+                    try:
+                        if b_time_raw:
+                            # Handle standard ISO formats, drop the trailing Z
+                            clean_time = b_time_raw.replace("Z", "+00:00")
+                            dt = datetime.fromisoformat(clean_time)
+                            ist_dt = dt.astimezone(ist_tz)
+                            
+                            # Format clearly so the AI reads it well
+                            b_time_str = ist_dt.strftime("%A, %B %d at %I:%M %p")
+                    except Exception as parse_err:
+                        logger.warning(f"Failed to parse time {b_time_raw}: {parse_err}")
+                        pass # fallback to raw string if parsing fails
+                        
+                    bookings.append(f"ID: {b_id}, Time: {b_time_str}, Status: {b_status}")
+                return f"Found bookings for phone {phone}:\n" + "\n".join(bookings)
             else:
-                return f"No bookings found for email {email}."
+                return f"No bookings found for phone {phone}. The API returned: {result}"
         except Exception as e:
             logger.error(f"Error fetching bookings: {e}")
             return "There was an error fetching the bookings."
-
     @llm.function_tool(description="Cancel an existing dental appointment.")
     async def cancel_appointment(
         self,

@@ -1,14 +1,14 @@
 from livekit.agents.voice import Agent, AgentSession
-from agent_triage import TriageAgent
+from agent_unified import UnifiedAgent
 import logging
 
 logger = logging.getLogger("voice-agent")
 
 def create_agent() -> tuple[Agent, AgentSession]:
-    """Creates and configures the Voice Pipeline Agent and Session."""
+    """Creates and configures the single, unified Voice Pipeline Agent and Session."""
 
-    # We start with the Triage Agent to detect the language and perform handoff
-    agent = TriageAgent()
+    # Initialize the single multilingual agent
+    agent = UnifiedAgent()
 
     session = AgentSession(
         stt=agent.stt,

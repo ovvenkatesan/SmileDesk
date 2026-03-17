@@ -1,0 +1,12 @@
+
+# Secrets and Environment Variables
+.env
+server/.env
+
+# Temporary and log files
+*.txt
+.gemini/
+
+# Python
+__pycache__/
+*.pyc
