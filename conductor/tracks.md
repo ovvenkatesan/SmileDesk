@@ -12,5 +12,10 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
+- [ ] **Track: Telephony Integration (SIP)**
+  *Link: [./tracks/telephony_integration_sip_20260317/](./tracks/telephony_integration_sip_20260317/)*
+
+---
+
 - [x] **Track: Owner Dashboard PWA**
   *Link: [./tracks/owner_dashboard_pwa_20260317/](./tracks/owner_dashboard_pwa_20260317/)*
