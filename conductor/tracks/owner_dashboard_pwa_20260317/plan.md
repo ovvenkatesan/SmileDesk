@@ -19,10 +19,10 @@
 - [x] Task: Configure PWA capabilities. e565066
     - [x] Add `next-pwa` (or similar) plugin.
     - [x] Create `manifest.json` and basic icons for installation.
-- [~] Task: Conductor - User Manual Verification 'Phase 2: Next.js Initialization & PWA Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Next.js Initialization & PWA Setup' (Protocol in workflow.md) [checkpoint: 00210d4]
 
 ## Phase 3: Firebase Auth Integration
-- [ ] Task: Setup Firebase client.
+- [~] Task: Setup Firebase client.
     - [ ] Install `firebase` SDK in the dashboard project.
     - [ ] Create Firebase configuration module using environment variables.
 - [ ] Task: Build Login Flow.
