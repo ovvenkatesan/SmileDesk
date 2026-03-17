@@ -8,6 +8,7 @@ Custom Full-Stack Application decoupled into a real-time Voice AI orchestration 
 ### Backend & Orchestration
 - **Language/Framework:** Python 3.10+
 - **Real-Time Logic:** LiveKit Python SDK (manages WebRTC connections and LLM state)
+- **Server API:** `livekit-api` package used for server-side interventions (e.g. SIP call transfers).
 
 ### Frontend (Owner Dashboard)
 - **Framework:** Next.js (React) - Industry standard for fast SaaS dashboard development, easily configured as a PWA.
@@ -24,6 +25,7 @@ Custom Full-Stack Application decoupled into a real-time Voice AI orchestration 
 
 ### Telephony & Integrations
 - **Telephony:** Vobiz SIP - SIP trunking to bridge traditional phone lines to the LiveKit server.
+- **Call Routing:** LiveKit Cloud SIP Ingress and Dispatch Rules route Vobiz calls to worker rooms.
 - **Scheduling API:** Cal.com - Primary API for reading availability and booking/rescheduling slots.
 - **Payments:** Stripe - For handling potential deposits or B2B SaaS billing.
 - **Authentication:** Firebase Auth (Phone) - Passwordless SMS OTP authentication for clinic owners.
