@@ -32,14 +32,14 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Firebase Auth Integration' (Protocol in workflow.md) [checkpoint: d864207]
 
 ## Phase 4: Bento Box Dashboard UI
-- [~] Task: Build main dashboard layout.
-    - [ ] Create a responsive CSS Grid layout for the Bento Box design.
-- [ ] Task: Implement core widgets (UI only).
-    - [ ] Create the ROI Snapshot component.
-    - [ ] Create the Agent Status indicator component.
-    - [ ] Create the Call Logs list component.
-    - [ ] Create the Booking History component.
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Bento Box Dashboard UI' (Protocol in workflow.md)
+- [x] Task: Build main dashboard layout. eeac002
+    - [x] Create a responsive CSS Grid layout for the Bento Box design.
+- [x] Task: Implement core widgets (UI only). eeac002
+    - [x] Create the ROI Snapshot component.
+    - [x] Create the Agent Status indicator component.
+    - [x] Create the Call Logs list component.
+    - [x] Create the Booking History component.
+- [~] Task: Conductor - User Manual Verification 'Phase 4: Bento Box Dashboard UI' (Protocol in workflow.md)
 
 ## Phase 5: Data Integration & Call Details
 - [ ] Task: Connect frontend to API.
