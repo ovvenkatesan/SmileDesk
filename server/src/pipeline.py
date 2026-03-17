@@ -4,11 +4,11 @@ import logging
 
 logger = logging.getLogger("voice-agent")
 
-def create_agent() -> tuple[Agent, AgentSession]:
+def create_agent(caller_id: str = "unknown") -> tuple[Agent, AgentSession]:
     """Creates and configures the single, unified Voice Pipeline Agent and Session."""
 
     # Initialize the single multilingual agent
-    agent = UnifiedAgent()
+    agent = UnifiedAgent(caller_id=caller_id)
 
     session = AgentSession(
         stt=agent.stt,

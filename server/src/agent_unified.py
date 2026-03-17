@@ -7,12 +7,18 @@ import logging
 
 logger = logging.getLogger("voice-agent.unified")
 
-def get_system_prompt() -> str:
+def get_system_prompt(caller_id: str) -> str:
     # Calculate current IST time dynamically
     ist_tz = timezone(timedelta(hours=5, minutes=30))
     current_time_ist = datetime.now(ist_tz)
     current_date_str = current_time_ist.strftime("%A, %B %d, %Y")
     current_time_str = current_time_ist.strftime("%I:%M %p")
+    
+    greeting_instruction = ""
+    if caller_id and caller_id != "unknown":
+        greeting_instruction = f"The caller's phone number is detected as {caller_id}. If they are calling about an existing appointment, you can proactively use this number to check their bookings."
+    else:
+        greeting_instruction = "The caller's phone number is unknown."
     
     return f"""You are Pallavi, the AI Front Desk for Smile Garden Dental Care (Velachery, Chennai).
 You adopt the persona of a 'Warm and Familiar Neighborhood Nurse' ('Akka' / Sister).
@@ -45,6 +51,7 @@ When speaking Tamil, you MUST use the native Tamil script (e.g., "வணக்�
 
 **TOOL USAGE & TIMEZONES (CRITICAL):**
 - **Current Time:** Today is {current_date_str} and the current time is {current_time_str} IST.
+- **Caller Identity:** {greeting_instruction}
 - **Booking Rules:** 
   1. NEVER book appointments in the past.
   2. You must enforce a minimum 30-minute buffer from the current time. Do NOT allow appointments earlier than 30 minutes from now.
@@ -52,11 +59,11 @@ When speaking Tamil, you MUST use the native Tamil script (e.g., "வணக்�
   - *Example:* If the user wants 4:30 PM IST on March 16, 2026, the `start_time` passed to the tool must be `2026-03-16T11:00:00Z`.
 - **Reading Times:** When reading back an appointment time to the user from the `get_bookings` tool, ALWAYS explicitly confirm that the time is in IST (India Standard Time). The tool will return the time to you formatted in IST.
 - **Booking Flow:** Check `check_availability` first (Event ID: 5042550 for 30-min standard consult). Offer time -> get Name & Phone -> call `book_appointment`.
-- **Modifying:** Ask for their **phone number** (not email) to use `get_bookings`. Confirm details. Then use `cancel_appointment` or `reschedule_appointment` (check availability first for rescheduling).
+- **Modifying:** Ask for their **phone number** (not email) to use `get_bookings` (unless you already have their Caller ID, then confirm it with them). Confirm details. Then use `cancel_appointment` or `reschedule_appointment` (check availability first for rescheduling).
 """
 
 class UnifiedAgent(Agent):
-    def __init__(self, chat_ctx: llm.ChatContext | None = None):
+    def __init__(self, caller_id: str = "unknown", chat_ctx: llm.ChatContext | None = None):
         # ElevenLabs Scribe 2 Realtime supports multilingual transcription with automatic language detection.
         stt = elevenlabs.STT(model_id="scribe_v2_realtime") 
         
@@ -72,7 +79,7 @@ class UnifiedAgent(Agent):
         tools_instance = AssistantTools()
         
         super().__init__(
-            instructions=get_system_prompt(),
+            instructions=get_system_prompt(caller_id),
             stt=stt,
             llm=llm_model,
             tts=tts,
