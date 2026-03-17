@@ -78,3 +78,12 @@ def get_call_details(call_id: str):
         }
     else:
         raise HTTPException(status_code=404, detail="Call not found")
+
+@app.get("/api/dashboard/bookings")
+def get_booking_history():
+    # Mock data
+    return [
+        {"id": 101, "date": "2026-03-18T09:00:00", "type": "Emergency", "status": "Confirmed"},
+        {"id": 102, "date": "2026-03-19T14:00:00", "type": "Checkup", "status": "Rescheduled"},
+        {"id": 103, "date": "2026-03-20T10:30:00", "type": "Consultation", "status": "Confirmed"}
+    ]
