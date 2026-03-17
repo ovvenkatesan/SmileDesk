@@ -12,7 +12,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Telephony Integration (SIP)**
+- [x] **Track: Telephony Integration (SIP)**
   *Link: [./tracks/telephony_integration_sip_20260317/](./tracks/telephony_integration_sip_20260317/)*
 
 ---
