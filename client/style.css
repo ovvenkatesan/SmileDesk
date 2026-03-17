@@ -1,144 +1,144 @@
 /* client/style.css */
 :root {
-    --primary-color: #0f766e; /* Teal-600 */
-    --secondary-color: #0ea5e9; /* Teal-500 */
-    --bg-color: #f8fafc;
-    --text-color: #334155;
-    --white: #ffffff;
+  --primary-color: #0f766e; /* Teal-600 */
+  --secondary-color: #0ea5e9; /* Teal-500 */
+  --bg-color: #f8fafc;
+  --text-color: #334155;
+  --white: #ffffff;
 }
 
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
 .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 20px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .header {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 40px 0;
-    text-align: center;
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 40px 0;
+  text-align: center;
 }
 
 .header h1 {
-    margin: 0 0 10px 0;
-    font-size: 2.5rem;
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
 }
 
 .header p {
-    margin: 0;
-    font-size: 1.2rem;
-    opacity: 0.9;
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
 }
 
 .main-content {
-    padding: 40px 0;
+  padding: 40px 0;
 }
 
 .hero {
-    text-align: center;
-    margin-bottom: 50px;
+  text-align: center;
+  margin-bottom: 50px;
 }
 
 .hero h2 {
-    font-size: 2rem;
-    color: var(--primary-color);
+  font-size: 2rem;
+  color: var(--primary-color);
 }
 
 .hero p {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .services h3 {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    text-align: center;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  text-align: center;
 }
 
 .services ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 .services li {
-    background: var(--white);
-    padding: 20px 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    flex: 1 1 200px;
-    text-align: center;
-    font-weight: bold;
-    border-top: 4px solid var(--secondary-color);
+  background: var(--white);
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  flex: 1 1 200px;
+  text-align: center;
+  font-weight: bold;
+  border-top: 4px solid var(--secondary-color);
 }
 
 .footer {
-    background-color: #1e293b;
-    color: #cbd5e1;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 40px;
+  background-color: #1e293b;
+  color: #cbd5e1;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
 }
 
 /* Voice Widget Styles */
 .voice-widget {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 1000;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
 }
 
 .fab {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: var(--primary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 50px;
-    padding: 15px 25px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
-    transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+  transition: all 0.3s ease;
 }
 
 .fab:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(15, 118, 110, 0.4);
-    background-color: #0d655e;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 118, 110, 0.4);
+  background-color: #0d655e;
 }
 
 /* Button States */
 .fab.default {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .fab.connecting {
-    background-color: #eab308; /* Amber */
-    animation: pulse 1.5s infinite;
+  background-color: #eab308; /* Amber */
+  animation: pulse 1.5s infinite;
 }
 
 .fab.active {
-    background-color: #ef4444; /* Red for Hangup */
+  background-color: #ef4444; /* Red for Hangup */
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
