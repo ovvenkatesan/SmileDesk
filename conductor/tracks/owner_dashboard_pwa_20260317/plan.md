@@ -42,10 +42,10 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 4: Bento Box Dashboard UI' (Protocol in workflow.md) [checkpoint: 1c18602]
 
 ## Phase 5: Data Integration & Call Details
-- [~] Task: Connect frontend to API.
-    - [ ] Implement fetch logic to retrieve data from the Python API endpoints.
-    - [ ] Populate the Bento Box widgets with the fetched data.
-- [ ] Task: Implement Call Details drill-down.
-    - [ ] Create a modal or slide-over panel for viewing a specific call.
-    - [ ] Display the fetched call transcript and AI sentiment analysis.
-- [ ] Task: Conductor - User Manual Verification 'Phase 5: Data Integration & Call Details' (Protocol in workflow.md)
+- [x] Task: Connect frontend to API. a88d877
+    - [x] Implement fetch logic to retrieve data from the Python API endpoints.
+    - [x] Populate the Bento Box widgets with the fetched data.
+- [x] Task: Implement Call Details drill-down. a88d877
+    - [x] Create a modal or slide-over panel for viewing a specific call.
+    - [x] Display the fetched call transcript and AI sentiment analysis.
+- [~] Task: Conductor - User Manual Verification 'Phase 5: Data Integration & Call Details' (Protocol in workflow.md)
