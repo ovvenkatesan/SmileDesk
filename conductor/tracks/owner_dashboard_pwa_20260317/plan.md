@@ -39,10 +39,10 @@
     - [x] Create the Agent Status indicator component.
     - [x] Create the Call Logs list component.
     - [x] Create the Booking History component.
-- [~] Task: Conductor - User Manual Verification 'Phase 4: Bento Box Dashboard UI' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Bento Box Dashboard UI' (Protocol in workflow.md) [checkpoint: 1c18602]
 
 ## Phase 5: Data Integration & Call Details
-- [ ] Task: Connect frontend to API.
+- [~] Task: Connect frontend to API.
     - [ ] Implement fetch logic to retrieve data from the Python API endpoints.
     - [ ] Populate the Bento Box widgets with the fetched data.
 - [ ] Task: Implement Call Details drill-down.
