@@ -9,10 +9,10 @@
     - [x] Endpoint for Agent Status.
     - [x] Endpoint for Call Logs list.
     - [x] Endpoint for specific Call Details (Transcript & Sentiment).
-- [~] Task: Conductor - User Manual Verification 'Phase 1: Backend API Setup' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Backend API Setup' (Protocol in workflow.md) [checkpoint: ed368e6]
 
 ## Phase 2: Next.js Initialization & PWA Setup
-- [ ] Task: Bootstrap Next.js project.
+- [~] Task: Bootstrap Next.js project.
     - [ ] Initialize Next.js app in a new `dashboard/` directory.
     - [ ] Configure Tailwind CSS.
     - [ ] Initialize `shadcn/ui` and apply "Minimal Soft" color palette to `tailwind.config.ts`.
