@@ -1,13 +1,13 @@
 # Implementation Plan: Telephony Integration (SIP)
 
 ## Phase 1: SIP Ingress Configuration Documentation
-- [ ] Task: Document LiveKit Cloud SIP Configuration.
-    - [ ] Create a markdown guide in `docs/sip-setup.md` detailing the CLI/Dashboard steps required to configure SIP Ingress on LiveKit Cloud for Vobiz.
-    - [ ] Include details on how LiveKit SIP Dispatch rules map incoming phone numbers to LiveKit Rooms.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: SIP Ingress Configuration Documentation' (Protocol in workflow.md)
+- [x] Task: Document LiveKit Cloud SIP Configuration. d1462f1
+    - [x] Create a markdown guide in `docs/sip-setup.md` detailing the CLI/Dashboard steps required to configure SIP Ingress on LiveKit Cloud for Vobiz.
+    - [x] Include details on how LiveKit SIP Dispatch rules map incoming phone numbers to LiveKit Rooms.
+- [x] Task: Conductor - User Manual Verification 'Phase 1: SIP Ingress Configuration Documentation' (Protocol in workflow.md) [checkpoint: 8c555ef]
 
 ## Phase 2: Python Worker Updates for SIP
-- [ ] Task: Extract Caller ID from metadata.
+- [~] Task: Extract Caller ID from metadata.
     - [ ] Update `server/src/agent.py` to inspect the `ctx.room.participants` or connection metadata for the SIP caller's phone number upon connection.
     - [ ] Pass the extracted phone number as context to `create_agent()` in `pipeline.py`.
 - [ ] Task: Update Agent Prompt.
