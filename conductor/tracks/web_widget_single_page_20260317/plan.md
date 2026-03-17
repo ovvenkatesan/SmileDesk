@@ -24,3 +24,6 @@
     - [x] Implement click-to-disconnect logic.
     - [x] Handle audio playback of the remote agent's track.
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Connection Logic and State Management' (Protocol in workflow.md) [checkpoint: 02240ea]
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions cb55cd7
