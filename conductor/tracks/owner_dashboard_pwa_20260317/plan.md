@@ -29,10 +29,10 @@
     - [x] Create an SMS OTP login page UI.
     - [x] Implement Firebase RecaptchaVerifier and signInWithPhoneNumber logic.
     - [x] Create a protected route wrapper for the dashboard.
-- [~] Task: Conductor - User Manual Verification 'Phase 3: Firebase Auth Integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Firebase Auth Integration' (Protocol in workflow.md) [checkpoint: d864207]
 
 ## Phase 4: Bento Box Dashboard UI
-- [ ] Task: Build main dashboard layout.
+- [~] Task: Build main dashboard layout.
     - [ ] Create a responsive CSS Grid layout for the Bento Box design.
 - [ ] Task: Implement core widgets (UI only).
     - [ ] Create the ROI Snapshot component.
