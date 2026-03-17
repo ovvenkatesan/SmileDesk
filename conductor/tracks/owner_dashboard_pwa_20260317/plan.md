@@ -4,12 +4,12 @@
 - [x] Task: Initialize Python API server. 617d436
     - [x] Add `fastapi` and `uvicorn` to `requirements.txt`.
     - [x] Create `server/src/api.py` with basic routing.
-- [~] Task: Create mock data endpoints.
-    - [ ] Endpoint for ROI Snapshot data.
-    - [ ] Endpoint for Agent Status.
-    - [ ] Endpoint for Call Logs list.
-    - [ ] Endpoint for specific Call Details (Transcript & Sentiment).
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Backend API Setup' (Protocol in workflow.md)
+- [x] Task: Create mock data endpoints. 4c14c86
+    - [x] Endpoint for ROI Snapshot data.
+    - [x] Endpoint for Agent Status.
+    - [x] Endpoint for Call Logs list.
+    - [x] Endpoint for specific Call Details (Transcript & Sentiment).
+- [~] Task: Conductor - User Manual Verification 'Phase 1: Backend API Setup' (Protocol in workflow.md)
 
 ## Phase 2: Next.js Initialization & PWA Setup
 - [ ] Task: Bootstrap Next.js project.
