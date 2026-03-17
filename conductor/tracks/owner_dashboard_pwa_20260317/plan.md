@@ -1,10 +1,10 @@
 # Implementation Plan: Owner Dashboard PWA
 
 ## Phase 1: Backend API Setup
-- [ ] Task: Initialize Python API server.
-    - [ ] Add `fastapi` and `uvicorn` to `requirements.txt`.
-    - [ ] Create `server/src/api.py` with basic routing.
-- [ ] Task: Create mock data endpoints.
+- [x] Task: Initialize Python API server. 617d436
+    - [x] Add `fastapi` and `uvicorn` to `requirements.txt`.
+    - [x] Create `server/src/api.py` with basic routing.
+- [~] Task: Create mock data endpoints.
     - [ ] Endpoint for ROI Snapshot data.
     - [ ] Endpoint for Agent Status.
     - [ ] Endpoint for Call Logs list.
