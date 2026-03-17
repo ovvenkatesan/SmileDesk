@@ -1,10 +1,10 @@
 # Implementation Plan: Web Widget & Single Page Site
 
 ## Phase 1: Setup and Basic HTML Structure
-- [ ] Task: Create basic `index.html` structure.
-    - [ ] Add basic Smile Garden Dental branding layout.
-    - [ ] Link a CSS file for styling and responsiveness.
-- [ ] Task: Add Voice Agent floating action button (FAB) UI.
+- [x] Task: Create basic `index.html` structure. 94337b4
+    - [x] Add basic Smile Garden Dental branding layout.
+    - [x] Link a CSS file for styling and responsiveness.
+- [~] Task: Add Voice Agent floating action button (FAB) UI.
     - [ ] Implement bottom-right anchored button.
     - [ ] Add basic hover and state styles (default, connecting, active).
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Setup and Basic HTML Structure' (Protocol in workflow.md)
