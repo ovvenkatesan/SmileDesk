@@ -136,7 +136,7 @@ async def entrypoint(ctx: JobContext):
     await session.say("Welcome to Smile Garden Dental clinic, how can I help you today?", allow_interruptions=False)
 
     # Hook into the disconnection event to log the call to Supabase
-    ctx.room.on("disconnected", lambda: log_call_to_supabase(caller_id, start_time, ctx.room.name))
+    ctx.room.on("disconnected", lambda: asyncio.create_task(log_call_to_supabase(caller_id, start_time, ctx.room.name, agent)))
 
 async def check_for_hangup(ctx: JobContext):
     """Checks if the tool requested a call end, and disconnects after a short delay."""
@@ -147,7 +147,8 @@ async def check_for_hangup(ctx: JobContext):
         logger.info("Disconnecting room.")
         await ctx.room.disconnect()
 
-def log_call_to_supabase(caller_id, start_time, room_name):
+async def log_call_to_supabase(caller_id, start_time, room_name, agent):
+    from sentiment import analyze_sentiment_and_summarize
     duration = int(time.time() - start_time)
     
     # Retrieve session state
@@ -165,7 +166,21 @@ def log_call_to_supabase(caller_id, start_time, room_name):
     if caller_id.startswith("user-") and state.get("phone_number_collected"):
         final_caller_id = state.get("phone_number_collected")
         
-    logger.info(f"Call disconnected. Logging to Supabase. Duration: {duration}s. Outcome: {outcome}")
+    # Compile the transcript from the agent's chat context
+    transcript_lines = []
+    if agent and hasattr(agent, 'chat_ctx'):
+        for msg in agent.chat_ctx.messages:
+            role = msg.role.capitalize()
+            # If msg.content is a list (multimodal), we extract text
+            if isinstance(msg.content, list):
+                text = " ".join([c if isinstance(c, str) else getattr(c, "text", "") for c in msg.content])
+            else:
+                text = msg.content
+            transcript_lines.append(f"{role}: {text}")
+    transcript_text = "\n".join(transcript_lines)
+    
+    logger.info(f"Call disconnected. Analyzing sentiment... Duration: {duration}s.")
+    analysis = await analyze_sentiment_and_summarize(transcript_text)
     
     if supabase:
         try:
@@ -174,8 +189,9 @@ def log_call_to_supabase(caller_id, start_time, room_name):
                 "duration_seconds": duration,
                 "status": "completed",
                 "outcome": outcome,
-                "sentiment": "Neutral",
-                "summary": "Call ended.",
+                "transcript": transcript_text,
+                "sentiment": analysis.get("sentiment", "Neutral"),
+                "summary": analysis.get("summary", "Call ended."),
                 "audio_url": audio_url
             }).execute()
             logger.info("Successfully logged call to Supabase.")
