@@ -11,7 +11,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Setup Supabase Database and Storage Bucket' (Protocol in workflow.md) [checkpoint: b8b67c1]
 
 ## Phase 2: LiveKit Call Recording & Storage
-- [ ] Task: Implement Audio Recording Configuration
+- [~] Task: Implement Audio Recording Configuration
     - [ ] Write unit tests for recording configuration logic.
     - [ ] Update `server/src/agent.py` to trigger LiveKit Egress or local recording to capture the call audio.
 - [ ] Task: Upload Audio to Supabase S3
