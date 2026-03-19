@@ -51,3 +51,11 @@ CREATE EXTENSION IF NOT EXISTS pg_cron;
 SELECT cron.schedule('delete-old-calls', '0 0 * * *', $$
   DELETE FROM calls WHERE start_time < NOW() - INTERVAL '30 days';
 $$);
+
+-- Setup Supabase Storage Bucket for call recordings
+INSERT INTO storage.buckets (id, name, public) VALUES ('call_recordings', 'call_recordings', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Storage Bucket RLS Policies
+CREATE POLICY "Allow public read access to call recordings" ON storage.objects FOR SELECT USING (bucket_id = 'call_recordings');
+CREATE POLICY "Allow public uploads to call recordings" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'call_recordings');
