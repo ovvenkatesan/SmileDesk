@@ -18,6 +18,7 @@ Create a specialized, 24/7 Voice AI support agent that elevates customer satisfa
 - **Dynamic State Engine:** Utilizes non-linear intent resolution to separate 'social logic' (empathy/listening) from 'business logic' (updating booking payloads).
 - **Patient Web Widget:** A lightweight (<100KB) Vanilla JS web component featuring context-aware hero buttons (e.g., "I'm in pain right now").
 - **Owner Dashboard PWA:** A Next.js/Tailwind application prioritizing the "After-Hours ROI Snapshot" to prove value to clinic owners.
+- **Quality Assurance & Auditing:** Automatic call recording via LiveKit Egress, coupled with asynchronous transcript aggregation and sentiment analysis (using Gemini), stored securely in Supabase for clinic owners to review.
 - **Zero-Wait Telephony:** SIP trunking integration (Vobiz) to pick up on ring one, every time.
 - **Multilingual Support:** English (Primary) and Tamil (Secondary via Sarvam TTS) for regional demographics.
 - **Comprehensive Appointment Management:** Patients can seamlessly book, reschedule, or cancel their dental appointments directly through the Voice AI, which securely interfaces with the Cal.com API.

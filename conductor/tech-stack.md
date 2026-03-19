@@ -9,6 +9,8 @@ Custom Full-Stack Application decoupled into a real-time Voice AI orchestration 
 - **Language/Framework:** Python 3.10+
 - **Real-Time Logic:** LiveKit Python SDK (manages WebRTC connections and LLM state)
 - **Server API:** `livekit-api` package used for server-side interventions (e.g. SIP call transfers).
+- **Data Persistence:** Supabase PostgreSQL for metadata/transcripts and Supabase Storage (S3-compatible) for MP3 call recordings.
+- **Audio Capture:** LiveKit Room Composite Egress.
 
 ### Frontend (Owner Dashboard)
 - **Framework:** Next.js (React) - Industry standard for fast SaaS dashboard development, easily configured as a PWA.
