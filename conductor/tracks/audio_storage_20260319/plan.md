@@ -26,4 +26,4 @@
 - [x] Task: Persist Call Data 420bcb5
     - [x] Write unit tests for the database insertion logic.
     - [x] Implement the final step in the post-call hook to insert the transcript, sentiment data, and S3 `audio_url` into the Supabase PostgreSQL database.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Transcription and Sentiment Analysis' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Transcription and Sentiment Analysis' (Protocol in workflow.md) [checkpoint: eefdd59]
