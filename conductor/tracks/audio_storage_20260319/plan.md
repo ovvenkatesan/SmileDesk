@@ -23,7 +23,7 @@
 - [x] Task: Implement Post-Call Sentiment Analysis c85cb5a
     - [x] Write unit tests for the sentiment analysis prompt and parser.
     - [x] Implement an asynchronous function using Gemini to analyze the final aggregated transcript for sentiment (e.g., positive, neutral, negative, and a short summary).
-- [~] Task: Persist Call Data
-    - [ ] Write unit tests for the database insertion logic.
-    - [ ] Implement the final step in the post-call hook to insert the transcript, sentiment data, and S3 `audio_url` into the Supabase PostgreSQL database.
+- [x] Task: Persist Call Data 420bcb5
+    - [x] Write unit tests for the database insertion logic.
+    - [x] Implement the final step in the post-call hook to insert the transcript, sentiment data, and S3 `audio_url` into the Supabase PostgreSQL database.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Transcription and Sentiment Analysis' (Protocol in workflow.md)
