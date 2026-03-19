@@ -19,3 +19,8 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Owner Dashboard PWA**
   *Link: [./tracks/owner_dashboard_pwa_20260317/](./tracks/owner_dashboard_pwa_20260317/)*
+
+---
+
+- [ ] **Track: it should store the audio file and transcription and sentiment analysis and it should use supabase s3 to store audio file**
+  *Link: [./tracks/audio_storage_20260319/](./tracks/audio_storage_20260319/)*

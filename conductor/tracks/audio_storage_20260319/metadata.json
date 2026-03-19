@@ -1,0 +1,8 @@
+{
+  "track_id": "audio_storage_20260319",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-03-19T00:00:00Z",
+  "updated_at": "2026-03-19T00:00:00Z",
+  "description": "it should store the audio file and transcription and sentiment analysis and it should use supabase s3 to store audio file"
+}

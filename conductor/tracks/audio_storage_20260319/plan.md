@@ -1,0 +1,29 @@
+# Implementation Plan: Audio Recording, Transcription, and Sentiment Storage
+
+## Phase 1: Setup Supabase Database and Storage Bucket
+- [ ] Task: Define Database Schema
+    - [ ] Write tests or validation scripts for schema verification.
+    - [ ] Implement SQL migration to create `calls` table (fields: `id`, `transcript`, `sentiment`, `audio_url`, `created_at`).
+    - [ ] Implement database trigger, `pg_cron`, or background job for the 30-day data retention policy.
+- [ ] Task: Setup S3 Storage Bucket
+    - [ ] Configure a new Supabase Storage bucket named `call_recordings`.
+    - [ ] Set appropriate bucket security policies (RLS).
+- [ ] Task: Conductor - User Manual Verification 'Phase 1: Setup Supabase Database and Storage Bucket' (Protocol in workflow.md)
+
+## Phase 2: LiveKit Call Recording & Storage
+- [ ] Task: Implement Audio Recording Configuration
+    - [ ] Write unit tests for recording configuration logic.
+    - [ ] Update `server/src/agent.py` to trigger LiveKit Egress or local recording to capture the call audio.
+- [ ] Task: Upload Audio to Supabase S3
+    - [ ] Write unit tests for the Supabase storage client upload wrapper.
+    - [ ] Implement a post-call hook to save the file as MP3 and upload it to the `call_recordings` bucket, returning the URL.
+- [ ] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Call Recording & Storage' (Protocol in workflow.md)
+
+## Phase 3: Transcription and Sentiment Analysis
+- [ ] Task: Implement Post-Call Sentiment Analysis
+    - [ ] Write unit tests for the sentiment analysis prompt and parser.
+    - [ ] Implement an asynchronous function using Gemini to analyze the final aggregated transcript for sentiment (e.g., positive, neutral, negative, and a short summary).
+- [ ] Task: Persist Call Data
+    - [ ] Write unit tests for the database insertion logic.
+    - [ ] Implement the final step in the post-call hook to insert the transcript, sentiment data, and S3 `audio_url` into the Supabase PostgreSQL database.
+- [ ] Task: Conductor - User Manual Verification 'Phase 3: Transcription and Sentiment Analysis' (Protocol in workflow.md)
