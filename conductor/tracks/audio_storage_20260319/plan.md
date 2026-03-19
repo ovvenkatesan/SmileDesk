@@ -1,7 +1,7 @@
 # Implementation Plan: Audio Recording, Transcription, and Sentiment Storage
 
 ## Phase 1: Setup Supabase Database and Storage Bucket
-- [ ] Task: Define Database Schema
+- [~] Task: Define Database Schema
     - [ ] Write tests or validation scripts for schema verification.
     - [ ] Implement SQL migration to create `calls` table (fields: `id`, `transcript`, `sentiment`, `audio_url`, `created_at`).
     - [ ] Implement database trigger, `pg_cron`, or background job for the 30-day data retention policy.
