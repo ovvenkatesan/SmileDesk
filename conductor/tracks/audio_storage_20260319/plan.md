@@ -5,9 +5,9 @@
     - [x] Write tests or validation scripts for schema verification.
     - [x] Implement SQL migration to create `calls` table (fields: `id`, `transcript`, `sentiment`, `audio_url`, `created_at`).
     - [x] Implement database trigger, `pg_cron`, or background job for the 30-day data retention policy.
-- [ ] Task: Setup S3 Storage Bucket
-    - [ ] Configure a new Supabase Storage bucket named `call_recordings`.
-    - [ ] Set appropriate bucket security policies (RLS).
+- [x] Task: Setup S3 Storage Bucket 9c11474
+    - [x] Configure a new Supabase Storage bucket named `call_recordings`.
+    - [x] Set appropriate bucket security policies (RLS).
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Setup Supabase Database and Storage Bucket' (Protocol in workflow.md)
 
 ## Phase 2: LiveKit Call Recording & Storage
