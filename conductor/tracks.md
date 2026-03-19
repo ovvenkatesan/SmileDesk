@@ -22,5 +22,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: it should store the audio file and transcription and sentiment analysis and it should use supabase s3 to store audio file**
+- [x] **Track: it should store the audio file and transcription and sentiment analysis and it should use supabase s3 to store audio file**
   *Link: [./tracks/audio_storage_20260319/](./tracks/audio_storage_20260319/)*
