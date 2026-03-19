@@ -8,7 +8,7 @@
 - [x] Task: Setup S3 Storage Bucket 9c11474
     - [x] Configure a new Supabase Storage bucket named `call_recordings`.
     - [x] Set appropriate bucket security policies (RLS).
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Setup Supabase Database and Storage Bucket' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Setup Supabase Database and Storage Bucket' (Protocol in workflow.md) [checkpoint: b8b67c1]
 
 ## Phase 2: LiveKit Call Recording & Storage
 - [ ] Task: Implement Audio Recording Configuration
