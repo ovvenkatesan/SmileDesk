@@ -17,10 +17,10 @@
 - [x] Task: Upload Audio to Supabase S3 80ddcd8
     - [x] Write unit tests for the Supabase storage client upload wrapper.
     - [x] Implement a post-call hook to save the file as MP3 and upload it to the `call_recordings` bucket, returning the URL.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Call Recording & Storage' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Call Recording & Storage' (Protocol in workflow.md) [checkpoint: 572fb2e]
 
 ## Phase 3: Transcription and Sentiment Analysis
-- [ ] Task: Implement Post-Call Sentiment Analysis
+- [~] Task: Implement Post-Call Sentiment Analysis
     - [ ] Write unit tests for the sentiment analysis prompt and parser.
     - [ ] Implement an asynchronous function using Gemini to analyze the final aggregated transcript for sentiment (e.g., positive, neutral, negative, and a short summary).
 - [ ] Task: Persist Call Data
