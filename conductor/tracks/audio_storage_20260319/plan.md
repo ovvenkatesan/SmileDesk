@@ -14,9 +14,9 @@
 - [x] Task: Implement Audio Recording Configuration 92c27ac
     - [x] Write unit tests for recording configuration logic.
     - [x] Update `server/src/agent.py` to trigger LiveKit Egress or local recording to capture the call audio.
-- [~] Task: Upload Audio to Supabase S3
-    - [ ] Write unit tests for the Supabase storage client upload wrapper.
-    - [ ] Implement a post-call hook to save the file as MP3 and upload it to the `call_recordings` bucket, returning the URL.
+- [x] Task: Upload Audio to Supabase S3 80ddcd8
+    - [x] Write unit tests for the Supabase storage client upload wrapper.
+    - [x] Implement a post-call hook to save the file as MP3 and upload it to the `call_recordings` bucket, returning the URL.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: LiveKit Call Recording & Storage' (Protocol in workflow.md)
 
 ## Phase 3: Transcription and Sentiment Analysis
