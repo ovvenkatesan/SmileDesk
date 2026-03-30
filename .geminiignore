@@ -1,0 +1,7 @@
+dashboard/node_modules/
+dashboard/.next/
+server/venv/
+_bmad-output/
+.agent/
+.git/
+.pytest_cache/

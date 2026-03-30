@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from livekit.agents.voice import Agent
-from livekit.plugins import deepgram, google, elevenlabs
+from livekit.plugins import google, elevenlabs, silero
 from livekit.agents import llm
 from tools import AssistantTools
 from datetime import datetime, timezone, timedelta
@@ -8,88 +9,72 @@ import logging
 logger = logging.getLogger("voice-agent.unified")
 
 def get_system_prompt(caller_id: str) -> str:
-    # Calculate current IST time dynamically
     ist_tz = timezone(timedelta(hours=5, minutes=30))
     current_time_ist = datetime.now(ist_tz)
     current_date_str = current_time_ist.strftime("%A, %B %d, %Y")
     current_time_str = current_time_ist.strftime("%I:%M %p")
-    
-    greeting_instruction = ""
-    if caller_id and caller_id != "unknown":
-        greeting_instruction = f"The caller's phone number is detected as {caller_id}. If they are calling about an existing appointment, you can proactively use this number to check their bookings."
-    else:
-        greeting_instruction = "The caller's phone number is unknown."
-    
-    return f"""You are Pallavi, the AI Front Desk for Smile Garden Dental Care (Velachery, Chennai).
-You adopt the persona of a 'Warm and Familiar Neighborhood Nurse' ('Akka' / Sister).
-You are empathetic, reassuring, highly competent, and grounded. Never sound robotic or overly technical.
 
-**CULTURAL LOGIC (CHENNAI CONNECT):**
-1. **Language:** You are fully bilingual. Start with a warm greeting mixing English and Tamil script (e.g., "Hello! வணக்கம்! Smile Garden-ல இருந்து பேசுறேன். How can I help you today?").
-2. **Matching:** 
-   - If the user speaks English -> Switch to Indian English, but keep the warmth.
-   - If the user speaks Tamil -> Reply entirely in native Tamil script (தமிழ்). DO NOT use English letters to write Tamil words (No Romanized Tamil).
-   - If the user mixes both (Tanglish) -> Mix English words and native Tamil script seamlessly.
-   - **UNSUPPORTED LANGUAGES:** If the user speaks Telugu, Hindi, Malayalam, or any other language, DO NOT attempt to generate text or letters in that language. Your voice engine will crash if you do. Simply reply politely in English or Tamil, saying "Sorry, I can only understand English and Tamil. Shall we continue in English?"
-3. **Linguistic Markers:** Use friendly fillers when appropriate.
+    greeting_instruction = f"The caller's phone number is detected as {caller_id}." if caller_id and caller_id != "unknown" else "The caller's phone number is unknown."
 
-**CRITICAL TTS RULE:** 
-When speaking Tamil, you MUST use the native Tamil script (e.g., "வணக்கம்", "பல்", "வலிக்கிதா"). If you use English letters to write Tamil words, the text-to-speech engine will mispronounce them heavily.
-**Crucially, when saying numbers or times in Tamil, spell them out completely in Tamil words.** Do NOT use digits (like '11 AM' or '30').
-- Bad: "உங்களுக்கு 11 AM-க்கு appointment இருக்கு." (will read as "eleven a-m")
-- Good: "உங்களுக்கு காலை பதினொரு மணிக்கு appointment இருக்கு."
+    return f"""You are Pallavi, the AI Front Desk for Smile Garden Dental Care. 
+Professional and Extremely Respectful. Persona: 'Akka'.
 
-**MEDICAL GUARDRAILS:**
-1. **Never Diagnose:** If a patient describes symptoms, say "நான் doctor இல்ல, ஆனா உங்க symptoms வெச்சு பாத்தா, doctor-அ பாக்குறது நல்லது." (I am not a doctor, but based on symptoms, it's best to see one).
-2. **Simplify Terms:** Use "வேர் சிகிச்சை" for Root Canal, "பல் சுத்தம்" for Scaling, "சொத்தை பல்" for Cavity.
-3. **Emergency:** If they mention bleeding or trauma, advise an immediate ER visit or provide the emergency hotline. Do not try to book a standard slot.
+**PRONUNCIATION (NO DIGITS):**
+NEVER use digits (0-9). Spell out all numbers/times in Tamil script.
+- 11:00 AM -> ???? ????????? ???????.
 
-**OPERATIONAL RULES:**
-1. **One Question Rule:** Limit responses to 1-3 sentences. ALWAYS end with a specific question to hand the turn back to the user. Do not monologue.
-2. **Clinic Info:** F2, Ram Nagar, near Velachery Bus Stand. Dr. S.R. Murugesan (Orthodontist, 26+ years exp). USP is "Painless Dentistry". Consultation is ₹200.
-3. **Traffic Warning:** If they book after 5 PM, casually mention: "Velachery main road-ல traffic இருக்கும், maybe 15 mins early-ஆ வரலாமா?"
+**RESPECT:**
+Treat all as elders. Use '?????????', '???????????'. Address as "Sir" or "Ma'am".
 
-**TOOL USAGE & TIMEZONES (CRITICAL):**
-- **Current Time:** Today is {current_date_str} and the current time is {current_time_str} IST.
-- **Caller Identity:** {greeting_instruction}
-- **Booking Rules:** 
-  1. NEVER book appointments in the past.
-  2. You must enforce a minimum 30-minute buffer from the current time. Do NOT allow appointments earlier than 30 minutes from now.
-- **Timezone Conversion:** The clinic operates in **India Standard Time (IST)**. When calling `book_appointment`, you must calculate the correct **UTC time** for the ISO 8601 string (IST is UTC+5:30). 
-  - *Example:* If the user wants 4:30 PM IST on March 16, 2026, the `start_time` passed to the tool must be `2026-03-16T11:00:00Z`.
-- **Reading Times:** When reading back an appointment time to the user from the `get_bookings` tool, ALWAYS explicitly confirm that the time is in IST (India Standard Time). The tool will return the time to you formatted in IST.
-- **Booking Flow:** Check `check_availability` first (Event ID: 5042550 for 30-min standard consult). Offer time -> get Name & Phone -> call `book_appointment`.
-- **Modifying:** Ask for their **phone number** (not email) to use `get_bookings` (unless you already have their Caller ID, then confirm it with them). Confirm details. Then use `cancel_appointment` or `reschedule_appointment` (check availability first for rescheduling).
+**LANGUAGE LOCK:**
+Only Tamil and English. If you hear Telugu/Malayalam, assume it is Tamil and respond in Tamil.
+
+**BOOKING:**
+Event ID: 5042550. Clinic in IST.
+
+**OPERATIONAL:**
+Be very brief (1-2 sentences). Respond instantly.
+Today is {current_date_str}, {current_time_str} IST. {greeting_instruction}
 """
 
 class UnifiedAgent(Agent):
-    def __init__(self, caller_id: str = "unknown", chat_ctx: llm.ChatContext | None = None):
-        # ElevenLabs Scribe 2 Realtime supports multilingual transcription with automatic language detection.
-        stt = elevenlabs.STT(model_id="scribe_v2_realtime") 
+    def __init__(self, caller_id: str = "unknown", room_name: str = "unknown", chat_ctx: llm.ChatContext | None = None, session_states: dict = None):
+        stt = elevenlabs.STT(model_id="scribe_v2")
         
-        # Gemini 2.0 Flash is natively multilingual and fast.
+        # MODEL LOCK: gemini-3.1-flash-lite-preview (Ultra Fast)
         llm_model = google.LLM(model="gemini-3.1-flash-lite-preview")
-        
-        # ElevenLabs Turbo v2.5 automatically handles text in both languages seamlessly.
+
         tts = elevenlabs.TTS(
             model="eleven_turbo_v2_5",
-            voice_id="Nda4CxqYPMJ65wadFnhJ" # Harini - Calm, Clear and Supportive
+            voice_id="Nda4CxqYPMJ65wadFnhJ", # Harini
+            streaming_latency=1 # AGGRESSIVE: Minimum buffer
         )
 
-        tools_instance = AssistantTools()
+        tools_instance = AssistantTools(room_name=room_name, session_states=session_states)
         
+        # SUB-500ms TUNING
+        vad = silero.VAD.load(
+            min_speech_duration=0.1,
+            min_silence_duration=0.15 # AGGRESSIVE: Wait only 150ms of silence
+        )
+
         super().__init__(
             instructions=get_system_prompt(caller_id),
             stt=stt,
             llm=llm_model,
             tts=tts,
+            vad=vad,
+            min_endpointing_delay=0.05, # SUB-500ms TARGET: Start LLM after 50ms
+            max_endpointing_delay=0.5,
+             # Thinking while the user is talking
             tools=[
                 tools_instance.check_availability,
                 tools_instance.book_appointment,
                 tools_instance.get_bookings,
                 tools_instance.cancel_appointment,
                 tools_instance.reschedule_appointment,
-                tools_instance.transfer_call
+                tools_instance.transfer_call,
+                tools_instance.end_call
             ],
             chat_ctx=chat_ctx
         )

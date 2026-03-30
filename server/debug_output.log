@@ -1,0 +1,15 @@
+{"message": "starting worker", "level": "INFO", "name": "livekit.agents", "version": "1.4.5", "rtc-version": "1.1.2", "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "HTTP server listening on :8081", "level": "INFO", "name": "livekit.agents", "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "initializing job runner", "level": "INFO", "name": "livekit.agents", "tid": 23624, "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "initializing job runner", "level": "INFO", "name": "livekit.agents", "tid": 6556, "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "initializing job runner", "level": "INFO", "name": "livekit.agents", "tid": 23632, "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "initializing job runner", "level": "INFO", "name": "livekit.agents", "tid": 24560, "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "Prewarming voice agent process", "level": "INFO", "name": "voice-agent", "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "Prewarming voice agent process", "level": "INFO", "name": "voice-agent", "timestamp": "2026-03-18T06:27:47.368580+00:00"}
+{"message": "Prewarming voice agent process", "level": "INFO", "name": "voice-agent", "timestamp": "2026-03-18T06:27:47.380611+00:00"}
+{"message": "Prewarming voice agent process", "level": "INFO", "name": "voice-agent", "timestamp": "2026-03-18T06:27:47.380611+00:00"}
+{"message": "job runner initialized", "level": "INFO", "name": "livekit.agents", "tid": 23624, "elapsed_time": 0.0, "timestamp": "2026-03-18T06:27:47.380611+00:00"}
+{"message": "job runner initialized", "level": "INFO", "name": "livekit.agents", "tid": 6556, "elapsed_time": 0.0, "timestamp": "2026-03-18T06:27:47.380611+00:00"}
+{"message": "job runner initialized", "level": "INFO", "name": "livekit.agents", "tid": 24560, "elapsed_time": 0.0, "timestamp": "2026-03-18T06:27:47.380611+00:00"}
+{"message": "job runner initialized", "level": "INFO", "name": "livekit.agents", "tid": 23632, "elapsed_time": 0.0, "timestamp": "2026-03-18T06:27:47.380611+00:00"}
+{"message": "registered worker", "level": "INFO", "name": "livekit.agents", "agent_name": "Pallavi", "id": "AW_VsqtU8kdDzmT", "url": "wss://smilegarden-j23vmzmq.livekit.cloud", "region": "India South", "protocol": 16, "timestamp": "2026-03-18T06:27:47.494716+00:00"}

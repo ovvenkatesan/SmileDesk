@@ -1,0 +1,46 @@
++--------------------- Traceback (most recent call last) ---------------------+
+| D:\Projects\BMad\SmileGardenVoiceAgent\server\venv\Lib\site-packages\liveki |
+| t\agents\cli\cli.py:1751 in start                                           |
+|                                                                             |
+|   1748         if drain_timeout is not None:                                |
+|   1749             server.update_options(drain_timeout=drain_timeout)       |
+|   1750                                                                      |
+| > 1751         _run_worker(                                                 |
+|   1752             server=server,                                           |
+|   1753             args=proto.CliArgs(                                      |
+|   1754                 log_level=log_level.value,                           |
+|                                                                             |
+| D:\Projects\BMad\SmileGardenVoiceAgent\server\venv\Lib\site-packages\liveki |
+| t\agents\cli\cli.py:1626 in _run_worker                                     |
+|                                                                             |
+|   1623             if not args.devmode:                                     |
+|   1624                 loop.run_until_complete(server.drain())              |
+|   1625                                                                      |
+| > 1626             loop.run_until_complete(server.aclose())                 |
+|   1627                                                                      |
+|   1628             if watch_client:                                         |
+|   1629                 loop.run_until_complete(watch_client.aclose())       |
+|                                                                             |
+| C:\Users\Venkat\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_ev |
+| ents.py:691 in run_until_complete                                           |
+|                                                                             |
+|    688         if not future.done():                                        |
+|    689             raise RuntimeError('Event loop stopped before Future com |
+|    690                                                                      |
+| >  691         return future.result()                                       |
+|    692                                                                      |
+|    693     def stop(self):                                                  |
+|    694         """Stop running the event loop.                              |
+|                                                                             |
+| D:\Projects\BMad\SmileGardenVoiceAgent\server\venv\Lib\site-packages\liveki |
+| t\agents\worker.py:892 in aclose                                            |
+|                                                                             |
+|    889                                                                      |
+|    890             logger.info("shutting down worker", extra={"id": self.id |
+|    891                                                                      |
+| >  892             assert self._close_future is not None                    |
+|    893             assert self._http_session is not None                    |
+|    894             assert self._api is not None                             |
+|    895             assert self._http_server is not None                     |
++-----------------------------------------------------------------------------+
+AssertionError

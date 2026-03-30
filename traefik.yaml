@@ -1,0 +1,77 @@
+entryPoints:
+  web:
+    address: ':80'
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ':443'
+
+providers:
+  file:
+    filename: /etc/traefik/traefik.yaml
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: info@thefarmtodoor.com
+      storage: /etc/traefik/acme/acme.json
+      httpChallenge:
+        entryPoint: web
+
+http:
+  routers:
+    livekit-api:
+      rule: "Host(`voice.thefarmtodoor.com`)"
+      entryPoints:
+        - websecure
+      service: livekit-api
+      tls:
+        certResolver: myresolver
+    
+    backend-api:
+      rule: "(Host(`widget.thefarmtodoor.com`) || Host(`dashboard.thefarmtodoor.com`)) && PathPrefix(`/api`)"
+      entryPoints:
+        - websecure
+      service: backend-api
+      tls:
+        certResolver: myresolver
+
+    dashboard:
+      rule: "Host(`dashboard.thefarmtodoor.com`)"
+      entryPoints:
+        - websecure
+      service: dashboard
+      tls:
+        certResolver: myresolver
+        
+    widget:
+      rule: "Host(`widget.thefarmtodoor.com`)"
+      entryPoints:
+        - websecure
+      service: widget
+      tls:
+        certResolver: myresolver
+
+  services:
+    livekit-api:
+      loadBalancer:
+        servers:
+          - url: http://127.0.0.1:7880
+          
+    backend-api:
+      loadBalancer:
+        servers:
+          - url: http://127.0.0.1:8000
+
+    dashboard:
+      loadBalancer:
+        servers:
+          - url: http://127.0.0.1:3000
+          
+    widget:
+      loadBalancer:
+        servers:
+          - url: http://127.0.0.1:8080

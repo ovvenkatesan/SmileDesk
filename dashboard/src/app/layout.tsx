@@ -30,11 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <ProtectedRoute>
+        
+          <AuthProvider><ProtectedRoute>
             {children}
-          </ProtectedRoute>
-        </AuthProvider>
+          </ProtectedRoute></AuthProvider>
+        
       </body>
     </html>
   );
