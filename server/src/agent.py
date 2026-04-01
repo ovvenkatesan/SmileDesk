@@ -8,7 +8,7 @@ from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli, llm
 from livekit.rtc import RemoteParticipant
 from livekit.api import LiveKitAPI
 from livekit.protocol.egress import RoomCompositeEgressRequest, EncodedFileOutput, S3Upload
-from pipeline import create_agent
+from core.pipeline import create_agent
 from supabase import create_client, Client
 import storage
 
@@ -87,14 +87,14 @@ async def entrypoint(ctx: JobContext):
             caller_id = identity.split("@")[0].replace("sip:", "") if identity.startswith("sip:") else identity
             break
 
-    agent, session = create_agent(caller_id=caller_id, room_name=ctx.room.name, session_states=session_states)
-    await session.start(agent, room=ctx.room)
+    agent = create_agent(caller_id=caller_id, room_name=ctx.room.name, session_states=session_states)
+    await agent.start(ctx.room)
 
     # UPDATED: Using full Tamil script for the initial greeting as requested
     greeting = "Hello! வணக்கம்! Smile Garden-ல இருந்து பேசுறேன். How can I help you today?"
-    session.say(greeting, allow_interruptions=True)
+    agent.say(greeting, allow_interruptions=True)
 
-    @session.on("agent_state_changed")
+    @agent.on("agent_state_changed")
     def on_agent_state_changed(state):
         if state == "listening":
             asyncio.create_task(check_for_hangup(ctx))
@@ -156,4 +156,4 @@ async def log_call_to_supabase(caller_id, start_time, room_name, agent):
         logger.error(f"Error in log_call_to_supabase: {e}")
 
 if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, agent_name="pallavi-voice-agent"))
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint, agent_name="pallavi-cogentxai-core"))
